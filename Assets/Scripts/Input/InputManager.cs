@@ -23,27 +23,39 @@ public class InputManager : MonoBehaviour
 
     private void OnPausePerformed(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        InputEvents.Pause?.Invoke();
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        Vector2 direction = context.ReadValue<Vector2>();
+        InputEvents.Move?.Invoke(direction);
     }
     private void OnMoveCanceled(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        InputEvents.Move?.Invoke(Vector2.zero);
     }
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        InputEvents.Jump?.Invoke();
     }
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        InputEvents.Attack?.Invoke(true);
     }
     private void OnAttackCanceled(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        InputEvents.Attack?.Invoke(false);
+    }
+
+    private void OnDisable()
+    {
+        systemInput.Player.Move.performed -= OnMovePerformed;
+        systemInput.Player.Move.canceled -= OnMoveCanceled;
+        systemInput.Player.Jump.performed -= OnJumpPerformed;
+        systemInput.Player.Pause.performed -= OnPausePerformed;
+        systemInput.Player.Attack.performed -= OnAttackPerformed;
+        systemInput.Player.Attack.canceled -= OnAttackCanceled;
+        systemInput.Disable();
     }
 }
