@@ -17,12 +17,14 @@ public class CharacterMovement : MonoBehaviour
         direction.x = directionX;
     }
 
-    public void HandleJump()
+    public bool HandleJump()
     {
-        if (isGrounded)
+        if (!isGrounded)
         {
-            rb2d.AddForceY(jumpForce, ForceMode2D.Impulse);
+            return false; 
         }
+        rb2d.AddForceY(jumpForce, ForceMode2D.Impulse);
+        return true;
     }
     private void FixedUpdate()
     {
@@ -43,6 +45,15 @@ public class CharacterMovement : MonoBehaviour
         {
             isGrounded = false;
         }
-        
+    }
+
+    public float GetVerticalVelocity()
+    {
+        return rb2d.linearVelocityY;
+    }
+
+    public bool GetIsGrounded()
+    {
+        return isGrounded;
     }
 }
