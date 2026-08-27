@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
         InputEvents.Move += OnMove;
         InputEvents.Jump += OnJump;
+        InputEvents.Attack += OnAttack;
+        InputEvents.Death += OnDeath;
     }
     private void Update()
     {
@@ -29,5 +31,14 @@ public class PlayerController : MonoBehaviour
     {
         characterMovement.HandleMovement(dir.x);
         playerAnimator.SetMovement(dir);
+    }
+
+    private void OnAttack()
+    {
+        playerAnimator.PlayAttack();
+    }
+    private void OnDeath()
+    {
+
     }
 }

@@ -18,7 +18,6 @@ public class InputManager : MonoBehaviour
         systemInput.Player.Jump.performed += OnJumpPerformed;
         systemInput.Player.Pause.performed += OnPausePerformed;
         systemInput.Player.Attack.performed += OnAttackPerformed;
-        systemInput.Player.Attack.canceled += OnAttackCanceled;
     }
 
     private void OnPausePerformed(InputAction.CallbackContext context)
@@ -41,11 +40,7 @@ public class InputManager : MonoBehaviour
     }
     private void OnAttackPerformed(InputAction.CallbackContext context)
     {
-        InputEvents.Attack?.Invoke(true);
-    }
-    private void OnAttackCanceled(InputAction.CallbackContext context)
-    {
-        InputEvents.Attack?.Invoke(false);
+        InputEvents.Attack?.Invoke();
     }
 
     private void OnDisable()
@@ -55,7 +50,6 @@ public class InputManager : MonoBehaviour
         systemInput.Player.Jump.performed -= OnJumpPerformed;
         systemInput.Player.Pause.performed -= OnPausePerformed;
         systemInput.Player.Attack.performed -= OnAttackPerformed;
-        systemInput.Player.Attack.canceled -= OnAttackCanceled;
         systemInput.Disable();
     }
 }

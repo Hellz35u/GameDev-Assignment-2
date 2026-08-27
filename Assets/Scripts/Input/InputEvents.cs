@@ -7,5 +7,6 @@ public static class InputEvents
     public static Action<Vector2> Move;
     public static Action Jump;
     public static Action Pause;
-    public static Action<bool> Attack;
+    public static Action Attack;
+    public static Action Death;
 }

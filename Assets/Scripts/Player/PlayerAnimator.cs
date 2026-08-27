@@ -5,6 +5,8 @@ public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
+
+    private int attackIndex = 0;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -19,13 +21,26 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetTrigger(nameof(AnimationParameters.Jump));
     }
+    public void PlayAttack()
+    {
+        attackIndex++;
+        if(attackIndex > 3)
+        {
+            attackIndex = 1;
+        }
+        animator.SetInteger(nameof(AnimationParameters.AttackIndex), attackIndex);
+        animator.SetTrigger(nameof(AnimationParameters.Attack));
+    }
+    public void PlatDeath()
+    {
+        animator.SetTrigger(nameof(AnimationParameters.Death));
+    }
     public void SetGrounded(bool isGrounded)
     {
         animator.SetBool(nameof(AnimationParameters.IsGrounded), isGrounded);
     }
     public void SetVerticalVelocity(float velocityY)
     {
-        Debug.Log("VelocityY = " + nameof(AnimationParameters.VelocityY));
         animator.SetFloat(nameof(AnimationParameters.VelocityY), velocityY);
     }
     private void FlipSprite(float directionX)
@@ -39,7 +54,9 @@ public class PlayerAnimator : MonoBehaviour
         Jump,
         VelocityY,
         Attack,
+        AttackIndex,
         Speed,
-        IsGrounded
+        IsGrounded,
+        Death
     }    
 }
