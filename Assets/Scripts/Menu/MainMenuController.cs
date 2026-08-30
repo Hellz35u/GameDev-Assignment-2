@@ -12,6 +12,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] Button infoButton;
     TextMeshProUGUI textMeshPro;
     string firstLevelName = "Level1";
+    string infoLevelName = "InfoScene";
  
     void Start()
     {
@@ -29,7 +30,7 @@ public class MainMenuController : MonoBehaviour
     }
     public void InfoScene()
     {
-        Debug.Log("Opening Information Window");
+        SceneManager.LoadScene(infoLevelName);
     }
 
 }
