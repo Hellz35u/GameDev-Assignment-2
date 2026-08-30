@@ -8,5 +8,4 @@ public static class InputEvents
     public static Action Jump;
     public static Action Pause;
     public static Action Attack;
-    public static Action Death;
 }

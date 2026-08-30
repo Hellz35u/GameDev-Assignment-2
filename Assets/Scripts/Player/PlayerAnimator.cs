@@ -31,9 +31,13 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetInteger(nameof(AnimationParameters.AttackIndex), attackIndex);
         animator.SetTrigger(nameof(AnimationParameters.Attack));
     }
-    public void PlatDeath()
+    public void PlayDeath()
     {
         animator.SetTrigger(nameof(AnimationParameters.Death));
+    }
+    public void PlayHit()
+    {
+        animator.SetTrigger(nameof(AnimationParameters.TakeHit));
     }
     public void SetGrounded(bool isGrounded)
     {
@@ -57,6 +61,7 @@ public class PlayerAnimator : MonoBehaviour
         AttackIndex,
         Speed,
         IsGrounded,
-        Death
+        Death,
+        TakeHit
     }    
 }

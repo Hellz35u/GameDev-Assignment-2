@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
         InputEvents.Move += OnMove;
         InputEvents.Jump += OnJump;
         InputEvents.Attack += OnAttack;
-        InputEvents.Death += OnDeath;
+        PlayerEvents.Death += OnDeath;
+        PlayerEvents.TakeHit += OnTakeHit;
     }
     private void Update()
     {
@@ -39,6 +40,17 @@ public class PlayerController : MonoBehaviour
     }
     private void OnDeath()
     {
-
+        playerAnimator.PlayDeath();
+    }
+    private void OnTakeHit(int damage)
+    {
+        playerAnimator.PlayHit();
+    }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            OnTakeHit(10);
+        }
     }
 }
