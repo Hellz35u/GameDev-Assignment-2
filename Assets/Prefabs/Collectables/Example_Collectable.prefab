@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6764678734926026058}
   - component: {fileID: 2064259297484555202}
   - component: {fileID: 4385462744243754037}
-  - component: {fileID: 5154405519653841122}
   - component: {fileID: 1557251410516435730}
+  - component: {fileID: -6702679309578268422}
   m_Layer: 0
   m_Name: Example_Collectable
   m_TagString: Untagged
@@ -108,8 +108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b22390789152c5439b0827169603036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
-  chaseSpeed: 50
-  refreshRate: 10
+  springFrequency: 0.9
+  dampingRatio: 0.8
+  finalTargetDistance: 0.05
+  chaseDelay: 2
+  initialOpacity: 0.05
 --- !u!50 &2064259297484555202
 Rigidbody2D:
   serializedVersion: 5
@@ -135,8 +138,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!58 &4385462744243754037
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -173,26 +176,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 2.06
---- !u!257 &5154405519653841122
-TargetJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3745856077876809640}
-  m_Enabled: 0
-  serializedVersion: 4
-  m_EnableCollision: 1
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 3
-  m_Anchor: {x: 0, y: 0}
-  m_Target: {x: -2.34, y: 2.67}
-  m_AutoConfigureTarget: 0
-  m_MaxForce: 50
-  m_DampingRatio: 1
-  m_Frequency: 10
 --- !u!58 &1557251410516435730
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -228,4 +211,25 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.2
+  m_Radius: 0.5
+--- !u!231 &-6702679309578268422
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3745856077876809640}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 1
+  m_DampingRatio: 0
+  m_Frequency: 1

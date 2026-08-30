@@ -1,46 +1,68 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
+    [SerializeField] private float secondsBetweenThrows = 2f;
+
     private CollectableChest collectableChest;
-    [SerializeField] float SecondsBetweenThrows = 2f;
     private Coroutine throwCoroutine = null;
-    void Start()
+
+    private void Start()
+    {
+        CacheComponents();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player")) return;
+        if (!CanStartThrowing()) return;
+
+        throwCoroutine = StartCoroutine(ThrowChestItems());
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player")) return;
+
+        StopThrowing();
+    }
+
+    // Setup / Initialization
+    private void CacheComponents()
     {
         collectableChest = GetComponent<CollectableChest>();
-        if (!collectableChest) Debug.LogWarning("can't find the CollectableChest script inside the GameObject!");
-    }
-
-    void OnTriggerEnter2D(UnityEngine.Collider2D other)
-    {
-        if(!collectableChest.IsEmpty())
-        { 
-            if (other.CompareTag("Player") && throwCoroutine == null)
-            {
-                throwCoroutine = StartCoroutine(ThrowChestItems());
-            }
-        }
-    }
-
-    void OnTriggerExit2D(UnityEngine.Collider2D other)
-    {
-        if (other.CompareTag("Player") && throwCoroutine != null)
+        if (collectableChest == null)
         {
-            StopCoroutine(throwCoroutine);
-            throwCoroutine = null;
+            Debug.LogWarning("can't find the CollectableChest script inside the GameObject!", this);
         }
     }
 
-    IEnumerator ThrowChestItems()
+    // Throwing Logic
+    private bool CanStartThrowing()
     {
-        while(!collectableChest.IsEmpty())
+        if (collectableChest == null) return false;
+        if (collectableChest.IsEmpty()) return false;
+        if (throwCoroutine != null) return false;
+
+        return true;
+    }
+
+    private void StopThrowing()
+    {
+        if (throwCoroutine == null) return;
+
+        StopCoroutine(throwCoroutine);
+        throwCoroutine = null;
+    }
+
+    private IEnumerator ThrowChestItems()
+    {
+        while (!collectableChest.IsEmpty())
         {
             collectableChest.ThrowNext();
-            yield return new WaitForSeconds(SecondsBetweenThrows);
+            yield return new WaitForSeconds(secondsBetweenThrows);
         }
         throwCoroutine = null;
-        yield return null;
     }
 }
