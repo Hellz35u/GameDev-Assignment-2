@@ -11,22 +11,23 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] Button exitButton;
     [SerializeField] Button infoButton;
     TextMeshProUGUI textMeshPro;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    string firstLevelName = "Level1";
+ 
     void Start()
     {
         playButton.onClick.AddListener(()=>StartGame());
         exitButton.onClick.AddListener(()=>ExitGame());
         infoButton.onClick.AddListener(()=>InfoScene());
     }
-    private void StartGame()
+    public void StartGame()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(firstLevelName);
     }
-    private void ExitGame()
+    public void ExitGame()
     {
         Debug.Log("Exiting Game");
     }
-    private void InfoScene()
+    public void InfoScene()
     {
         Debug.Log("Opening Information Window");
     }
