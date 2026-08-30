@@ -5,7 +5,7 @@ public class Chest : MonoBehaviour
 {
     [SerializeField] private float secondsBetweenThrows = 2f;
 
-    private CollectableChest collectableChest;
+    private CollectableLauncher collectableChest;
     private Coroutine throwCoroutine = null;
     private Animator chestAnimator = null;
 
@@ -32,7 +32,7 @@ public class Chest : MonoBehaviour
     // Setup / Initialization
     private void CacheComponents()
     {
-        collectableChest = GetComponent<CollectableChest>();
+        collectableChest = GetComponent<CollectableLauncher>();
         if (collectableChest == null)
         {
             Debug.LogWarning("can't find the CollectableChest script inside the GameObject!", this);

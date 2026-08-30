@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class CollectableChest : MonoBehaviour
+public class CollectableLauncher : MonoBehaviour
 {
     [SerializeField] private List<GameObject> collectablesList;
     [SerializeField] private Vector2 throwOffset = new Vector2(0.0f,2f);
