@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -6702679309578268422}
   m_Layer: 0
   m_Name: Example_Collectable
-  m_TagString: Untagged
+  m_TagString: Collectables
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b22390789152c5439b0827169603036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  scoreValue: 100
   springFrequency: 0.9
   dampingRatio: 0.8
   finalTargetDistance: 0.05

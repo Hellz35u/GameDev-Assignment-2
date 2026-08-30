@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class CollectableChest : MonoBehaviour
 {
     [SerializeField] private List<GameObject> collectablesList;
+    [SerializeField] private Vector2 throwOffset = new Vector2(0.0f,2f);
     [SerializeField] private float yThrowForce = 4f;
     [SerializeField] private float xThrowMinForce = -2f;
     [SerializeField] private float xThrowMaxForce = 2f;
@@ -16,11 +17,10 @@ public class CollectableChest : MonoBehaviour
     public bool ThrowNext()
     {
         if (IsEmpty()) return false;
-
-        Vector3 currentLocation = transform.position;
+        Vector3 throwLocation = CalculateThrowPosition();
         GameObject firstCollectable = collectablesList[0];
 
-        ThrowCollectable(firstCollectable, currentLocation);
+        ThrowCollectable(firstCollectable, throwLocation);
         collectablesList.RemoveAt(0);
 
         return true;
@@ -29,14 +29,19 @@ public class CollectableChest : MonoBehaviour
     public void ThrowAll()
     {
         if (IsEmpty()) return;
-
-        Vector3 currentLocation = transform.position;
+        Vector3 throwLocation = CalculateThrowPosition();
         foreach (GameObject collectable in collectablesList)
         {
-            ThrowCollectable(collectable, currentLocation);
+            ThrowCollectable(collectable, throwLocation);
         }
 
         collectablesList.Clear();
+    }
+
+    private Vector3 CalculateThrowPosition()
+    {
+        //current location + offset
+        return transform.position + (Vector3)throwOffset;
     }
 
     private void ThrowCollectable(GameObject collectable, Vector3 spawnPosition)

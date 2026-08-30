@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
+    [SerializeField] private int scoreValue = 100;
     [SerializeField] private float springFrequency = 5f;
     [SerializeField] private float dampingRatio = 0.7f;
     [SerializeField] private float finalTargetDistance = 0.5f;
