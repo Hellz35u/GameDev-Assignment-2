@@ -5,12 +5,26 @@ public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
-
+    [SerializeField] private Transform swordHitBox;
     private int attackIndex = 0;
     private void Awake()
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    private void Start()
+    {
+        DisableSwordHitBox();
+    }
+    private void EnableSwordHitBox()
+    {
+        Collider2D swordTriger = swordHitBox.gameObject.GetComponent<Collider2D>();
+        swordTriger.enabled = true;
+    }
+    private void DisableSwordHitBox()
+    {
+        Collider2D swordTriger = swordHitBox.gameObject.GetComponent<Collider2D>();
+        swordTriger.enabled = false;
     }
     public void SetMovement(Vector2 direction)
     {
@@ -51,7 +65,16 @@ public class PlayerAnimator : MonoBehaviour
     {
         if (Mathf.Approximately(directionX, 0f))
             return;
-        spriteRenderer.flipX = directionX < 0;
+
+        bool facingLeft = directionX < 0;
+
+        spriteRenderer.flipX = facingLeft;
+
+        Vector3 hitBoxPosition = swordHitBox.localPosition;
+
+        hitBoxPosition.x = Mathf.Abs(hitBoxPosition.x) * (facingLeft ? -1 : 1);
+
+        swordHitBox.localPosition = hitBoxPosition;
     }
     enum AnimationParameters
     {

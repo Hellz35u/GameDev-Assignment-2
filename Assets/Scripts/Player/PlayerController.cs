@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         playerAnimator.PlayDeath();
     }
-    private void OnTakeHit(int damage)
+    private void OnTakeHit()
     {
         playerAnimator.PlayHit();
     }
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Enemy"))
         {
-            OnTakeHit(10);
+            //here we call the event on hit
         }
     }
 }

@@ -4,6 +4,6 @@ using UnityEngine;
 
 public static class PlayerEvents
 {
-    public static Action<int> TakeHit;
+    public static Action TakeHit;
     public static Action Death;
 }
