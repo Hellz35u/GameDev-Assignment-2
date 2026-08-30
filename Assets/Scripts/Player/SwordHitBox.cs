@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class SwordHitBox : MonoBehaviour
 {
-    private HashSet<Collider2D> hitedEnemy = new();
+    private HashSet<GameObject> enemiesHitThisAttack = new();
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") && hitedEnemy.Contains(other))
+        if (other.CompareTag("Enemy") && !enemiesHitThisAttack.Contains(other.gameObject))
         {
-            Debug.Log("Sword hit Enemy!");
-            hitedEnemy.Add(other);
+            //need to handle attack on the enemy
+            enemiesHitThisAttack.Add(other.gameObject);
         }
     }
     public void ClearMemory()
     {
-        hitedEnemy.Clear();
+        enemiesHitThisAttack.Clear();
     }
 }

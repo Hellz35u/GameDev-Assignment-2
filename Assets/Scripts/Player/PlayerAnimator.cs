@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Transform swordHitBox;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private SwordHitBox swordHitBox = null;
     private int attackIndex = 0;
     private void Awake()
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        swordHitBox = GetComponentInChildren<SwordHitBox>();
     }
     private void Start()
     {
@@ -18,13 +19,15 @@ public class PlayerAnimator : MonoBehaviour
     }
     private void EnableSwordHitBox()
     {
-        Collider2D swordTriger = swordHitBox.gameObject.GetComponent<Collider2D>();
-        swordTriger.enabled = true;
+        Collider2D swordTrigger = swordHitBox.GetComponent<Collider2D>();
+        swordTrigger.enabled = true;
     }
+
     private void DisableSwordHitBox()
     {
-        Collider2D swordTriger = swordHitBox.gameObject.GetComponent<Collider2D>();
-        swordTriger.enabled = false;
+        Collider2D swordTrigger = swordHitBox.GetComponent<Collider2D>();
+        swordHitBox.ClearMemory();
+        swordTrigger.enabled = false;
     }
     public void SetMovement(Vector2 direction)
     {
@@ -70,11 +73,11 @@ public class PlayerAnimator : MonoBehaviour
 
         spriteRenderer.flipX = facingLeft;
 
-        Vector3 hitBoxPosition = swordHitBox.localPosition;
+        Vector3 hitBoxPosition = swordHitBox.transform.localPosition;
 
         hitBoxPosition.x = Mathf.Abs(hitBoxPosition.x) * (facingLeft ? -1 : 1);
 
-        swordHitBox.localPosition = hitBoxPosition;
+        swordHitBox.transform.localPosition = hitBoxPosition;
     }
     enum AnimationParameters
     {
