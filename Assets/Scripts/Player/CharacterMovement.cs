@@ -2,14 +2,18 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D rb2d;
+    Rigidbody2D rb2d;
     Vector2 direction = Vector2.zero;
-    [SerializeField] float speed = 50f;
+    [SerializeField] float moveSpeed = 50f;
     [SerializeField] float jumpForce = 8f;
     bool isGrounded = false;
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        if(rb2d == null)
+        {
+            Debug.LogError("can't find Rigidbody2D in this GameObject!");
+        }
     }
 
     public void HandleMovement(float directionX)
@@ -28,7 +32,7 @@ public class CharacterMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb2d.linearVelocityX = direction.x * speed;
+        rb2d.linearVelocityX = direction.x * moveSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
