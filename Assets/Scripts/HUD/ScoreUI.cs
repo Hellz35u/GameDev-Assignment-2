@@ -1,26 +1,27 @@
-using DG.Tweening.Core.Easing;
-using System;
 using TMPro;
-using UnityEditor.Build.Content;
 using UnityEngine;
+
 public class ScoreUI : MonoBehaviour
 {
     private TextMeshProUGUI scoreText;
-    //[SerializeField] private GameManager gameManager;
-    private Action updateScore;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private void Awake()
     {
-        //gameManager.OnScoreChanged += ScoreUpdater;
-        ScoreUpdater(0);
+        scoreText = GetComponent<TextMeshProUGUI>();
     }
-
-    public void ScoreUpdater(int score)
+    private void Start()
     {
-        if (scoreText != null)
+        ScoreUpdater(0);
+
+        GameEvents.OnScoreChanged += ScoreUpdater;
+    }
+    private void ScoreUpdater(int score)
+    {
+        if (scoreText == null)
+        {
+            Debug.LogError("scoreText NULL EXCEPTION");
             return;
-
+        }
         scoreText.text = $"Score: {score}";
-
     }
 }
