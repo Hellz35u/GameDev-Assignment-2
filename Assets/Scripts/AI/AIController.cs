@@ -32,9 +32,6 @@ public class AIController : MonoBehaviour
         {
             Debug.LogError("can't find EnemiesTags script in this GameObject!");
         }
-
-        //for tests
-        targetGameObject = FindAnyObjectByType<PlayerController>()?.gameObject;
     }
 
     void FixedUpdate()

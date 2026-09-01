@@ -26,13 +26,18 @@ public class CharecterAnimation : MonoBehaviour
         if(charecterHitBox != null)
         {
             triggerHitBox = charecterHitBox.GetComponent<Collider2D>();
-            if(triggerHitBox == null)
+            if (triggerHitBox == null)
             {
                 Debug.LogError("the GameObject children with charecterHitBox dont have Collider2D!");
             }
-            else if(triggerHitBox.isTrigger == false)
+            else if (triggerHitBox.isTrigger == false)
             {
                 Debug.LogError("the Collider2D of the children need to be trigger!");
+            }
+            else
+            {
+                Debug.Log("CharacterHitBox found on: " + charecterHitBox.gameObject.name);
+                Debug.Log("Collider2D found on: " + triggerHitBox.gameObject.name);
             }
         }
         else
@@ -91,12 +96,12 @@ public class CharecterAnimation : MonoBehaviour
     }
     private void FlipSprite(float directionX)
     {
-        if (charecterHitBox == null) return;
         if (Mathf.Approximately(directionX, 0f))return;
 
         bool facingLeft = directionX < 0;
         spriteRenderer.flipX = facingLeft;
 
+        if (charecterHitBox == null) return;
         Vector3 hitBoxPosition = charecterHitBox.transform.localPosition;
 
         hitBoxPosition.x = Mathf.Abs(hitBoxPosition.x) * (facingLeft ? -1 : 1);
