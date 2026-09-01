@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ScoreEvent : MonoBehaviour
+public class HeathBarUI : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

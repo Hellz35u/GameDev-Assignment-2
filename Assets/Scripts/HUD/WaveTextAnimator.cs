@@ -6,18 +6,23 @@ using System;
 public class WaveTextAnimator : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI waveText;
+    [SerializeField] private float duration = 0.2f;
+    //[SerializeField] private WaveManager waveManager;
+    
     private Tween tween;
     private Vector3 originalScale;
-    [SerializeField] private float duration = 0.2f;
-    
-    
 
     void Start()
     {
         originalScale = transform.localScale;
-        StartCoroutine(PopingTime(WaveAnimation, 1));
+        //waveManager.OnWaveChanged += UpdateWaveText;
     }
 
+    private void UpdateWaveText(int waveNumber)
+    {
+        waveText.text = $"WAVE {waveNumber}";
+        StartCoroutine(PopingTime(WaveAnimation, waveNumber));
+    }
     private void WaveAnimation()
     {
         if (tween != null || tween.IsActive())
@@ -38,9 +43,5 @@ public class WaveTextAnimator : MonoBehaviour
         waveAnimation();
         yield return new WaitForSeconds(waitingTime);
         waveText.enabled = false;
-    }
-    public void TextEditor(string text)
-    {
-        waveText.text = text;
     }
 }
