@@ -1,20 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField] private int maxWaves = 3;
+    [SerializeField] private List<WaveData> waves;
 
-    private int currentWave = 1;
+    private int currentWaveIndex = 0;
     private bool isGameFinished;
 
     private void OnEnable()
     {
-        //GameEvents.OnTimerEnded += EndWave;
+        // GameEvents.OnTimerEnded += EndWave;
     }
 
     private void OnDisable()
     {
-        //GameEvents.OnTimerEnded -= EndWave;
+        // GameEvents.OnTimerEnded -= EndWave;
     }
 
     private void Start()
@@ -24,8 +26,24 @@ public class WaveManager : MonoBehaviour
 
     private void StartWave()
     {
-        Debug.Log($"Wave {currentWave} started");
-        //GameEvents.WaveStarted(currentWave);
+        if (isGameFinished)
+            return;
+
+        WaveData currentWave = waves[currentWaveIndex];
+        Debug.Log($"Wave {currentWaveIndex + 1} started");
+        // GameEvents.WaveStarted(currentWaveIndex + 1, currentWave.waveDuration);
+
+        StartCoroutine(SpawnWave(currentWave));
+    }
+
+    private IEnumerator SpawnWave(WaveData wave)
+    {
+        foreach (GameObject enemy in wave.enemies)
+        {
+            Instantiate(enemy, transform.position, Quaternion.identity);
+
+            yield return new WaitForSeconds(wave.spawnInterval);
+        }
     }
 
     private void EndWave()
@@ -33,36 +51,37 @@ public class WaveManager : MonoBehaviour
         if (isGameFinished)
             return;
 
-        Debug.Log($"Wave {currentWave} ended");
-        if (currentWave >= maxWaves)
+        Debug.Log($"Wave {currentWaveIndex + 1} ended");
+        if (currentWaveIndex >= waves.Count - 1)
         {
             WinGame();
             return;
         }
 
-        currentWave++;
+        currentWaveIndex++;
         StartWave();
     }
 
     public void ResetWaves()
     {
-        currentWave = 1;
+        StopAllCoroutines();
+        currentWaveIndex = 0;
         isGameFinished = false;
 
-        //GameEvents.WavesReset();
+        // GameEvents.WavesReset();
         StartWave();
     }
 
     private void WinGame()
     {
         isGameFinished = true;
+        StopAllCoroutines();
 
         Debug.Log("Player Won");
-        //GameEvents.GameWon();
+        // GameEvents.GameWon();
     }
-
     public int GetCurrentWave()
     {
-        return currentWave;
+        return currentWaveIndex + 1;
     }
 }
