@@ -13,12 +13,26 @@ public class AIController : MonoBehaviour
 
     private void OnEnable()
     {
-        TargetManager.GetInstance()?.RegisterTarget(gameObject);
+        if (TargetManager.GetInstance() == null)
+        {
+            Debug.LogError($"'{gameObject.name}' can't register to Target Manager");
+        }
+        else
+        {
+            TargetManager.GetInstance().RegisterTarget(gameObject);
+        }
     }
 
     private void OnDisable()
     {
-        TargetManager.GetInstance()?.UnregisterTarget(gameObject);
+        if (TargetManager.GetInstance() == null)
+        {
+            Debug.LogError($"'{gameObject.name}' can't unregister to Target Manager ,\n if the game is ending ignore this msg!");
+        }
+        else
+        {
+            TargetManager.GetInstance().UnregisterTarget(gameObject);
+        }
     }
 
     void Start()
@@ -45,7 +59,7 @@ public class AIController : MonoBehaviour
         }
 
         Vector3 myPosition = transform.position;
-        if (targetGameObject != null)
+        if (targetGameObject != null && targetGameObject.activeInHierarchy == true)
         {
             Vector3 targetPosition = targetGameObject.transform.position;
 

@@ -8,7 +8,7 @@ public class TargetManager : MonoBehaviour
     private HashSet<GameObject> emptyHashSet = new();
     private static TargetManager singletoneInstance = null;
 
-    public void Awake()
+    private void Awake()
     {
         if (singletoneInstance != null && singletoneInstance != this)
         {
@@ -50,7 +50,7 @@ public class TargetManager : MonoBehaviour
     }
     public GameObject GetClosestTarget(List<string> tagsToLookFor, Vector3 originPosition)
     {
-        if (registeredTargetsByTag.Count == 0 || tagsToLookFor == null || tagsToLookFor.Count == 0)
+        if (tagsToLookFor == null || tagsToLookFor.Count == 0)
         {
             return null;
         }

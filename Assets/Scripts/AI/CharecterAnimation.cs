@@ -34,11 +34,6 @@ public class CharecterAnimation : MonoBehaviour
             {
                 Debug.LogError("the Collider2D of the children need to be trigger!");
             }
-            else
-            {
-                Debug.Log("CharacterHitBox found on: " + charecterHitBox.gameObject.name);
-                Debug.Log("Collider2D found on: " + triggerHitBox.gameObject.name);
-            }
         }
         else
         {
