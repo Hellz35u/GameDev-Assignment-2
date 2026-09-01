@@ -33,7 +33,7 @@ public class Timer : MonoBehaviour
             timeRemaining = 0f;
             isRunning = false;
             UpdateTimerText();
-            //GameEvents.TimerEnded();
+            GameEvents.TimerEnded();
 
             Debug.Log("Timer finished");
             return;
@@ -69,7 +69,18 @@ public class Timer : MonoBehaviour
     {
         return timeRemaining <= 0f;
     }
-
+    private void OnEnable()
+    {
+        GameEvents.OnWaveStarted += HandleWaveStarted;
+    }
+    private void OnDisable()
+    {
+        GameEvents.OnWaveStarted -= HandleWaveStarted;
+    }
+    private void HandleWaveStarted(int waveNumber, float duration)
+    {
+        StartTimer(duration);
+    }
     private void UpdateTimerText()
     {
         if (timerText == null)

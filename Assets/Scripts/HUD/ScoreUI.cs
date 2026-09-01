@@ -9,11 +9,17 @@ public class ScoreUI : MonoBehaviour
     {
         scoreText = GetComponent<TextMeshProUGUI>();
     }
+    private void OnEnable()
+    {
+        GameEvents.OnScoreChanged += ScoreUpdater;
+    }
+    private void OnDisable()
+    {
+        GameEvents.OnScoreChanged -= ScoreUpdater;
+    }
     private void Start()
     {
         ScoreUpdater(0);
-
-        //GameEvents.OnScoreChanged += ScoreUpdater;
     }
     private void ScoreUpdater(int score)
     {
@@ -22,6 +28,7 @@ public class ScoreUI : MonoBehaviour
             Debug.LogError("scoreText NULL EXCEPTION");
             return;
         }
+
         scoreText.text = $"Score: {score}";
     }
 }

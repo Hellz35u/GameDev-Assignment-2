@@ -9,10 +9,19 @@ public class HealthBarUI : MonoBehaviour
 
     private float maxHealthBarPoints = 100f;
 
+    private void OnEnable()
+    {
+        GameEvents.OnHealthChanged += HealthBarUpdater;
+    }
+    private void OnDisable()
+    {
+        GameEvents.OnHealthChanged -= HealthBarUpdater;
+    }
     private void Start()
     {
         slider = GetComponent<Slider>();
         healthPointsText = GetComponentInChildren<TextMeshProUGUI>();
+
         if (slider == null)
         {
             Debug.LogError("Error: Slider is null");
@@ -25,10 +34,8 @@ public class HealthBarUI : MonoBehaviour
             return;
         }
 
-        //GameEvents.OnHealthChanged += HealthBarUpdater;
         HealthBarUpdater(maxHealthBarPoints);
     }
-
     private void HealthBarUpdater(float currentHealth)
     {
         slider.value = currentHealth / maxHealthBarPoints;
