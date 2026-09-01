@@ -15,7 +15,7 @@ public class WaveTextAnimator : MonoBehaviour
     private void Start()
     {
         originalScale = transform.localScale;
-        GameEvents.OnWaveChanged += UpdateWaveText;
+        //GameEvents.OnWaveChanged += UpdateWaveText;
     }
 
     private void UpdateWaveText(int waveNumber)

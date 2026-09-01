@@ -13,7 +13,7 @@ public class ScoreUI : MonoBehaviour
     {
         ScoreUpdater(0);
 
-        GameEvents.OnScoreChanged += ScoreUpdater;
+        //GameEvents.OnScoreChanged += ScoreUpdater;
     }
     private void ScoreUpdater(int score)
     {

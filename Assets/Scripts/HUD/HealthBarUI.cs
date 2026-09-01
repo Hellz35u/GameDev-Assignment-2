@@ -25,7 +25,7 @@ public class HealthBarUI : MonoBehaviour
             return;
         }
 
-        GameEvents.OnHealthChanged += HealthBarUpdater;
+        //GameEvents.OnHealthChanged += HealthBarUpdater;
         HealthBarUpdater(maxHealthBarPoints);
     }
 

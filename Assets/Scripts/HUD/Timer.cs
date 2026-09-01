@@ -33,7 +33,7 @@ public class Timer : MonoBehaviour
             timeRemaining = 0f;
             isRunning = false;
             UpdateTimerText();
-            GameEvents.TimerEnded();
+            //GameEvents.TimerEnded();
 
             Debug.Log("Timer finished");
             return;
