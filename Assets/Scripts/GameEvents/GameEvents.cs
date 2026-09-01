@@ -1,16 +1,44 @@
-using UnityEngine;
+using System;
 
-public class GameEvents : MonoBehaviour
+public static class GameEvents
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    // Score
+    public static event Action<int> OnScoreChanged;
 
-    // Update is called once per frame
-    void Update()
+    // Health
+    public static event Action<float> OnHealthChanged;
+
+    // Timer
+    public static event Action OnTimerEnded;
+
+    // Waves
+    public static event Action<int, float> OnWaveStarted;
+    public static event Action OnWavesReset;
+
+    // Game
+    public static event Action OnGameWon;
+    public static void ScoreChanged(int score)
     {
-        
+        OnScoreChanged?.Invoke(score);
+    }
+    public static void HealthChanged(float currentHealth)
+    {
+        OnHealthChanged?.Invoke(currentHealth);
+    }
+    public static void TimerEnded()
+    {
+        OnTimerEnded?.Invoke();
+    }
+    public static void WaveStarted(int waveNumber, float waveDuration)
+    {
+        OnWaveStarted?.Invoke(waveNumber, waveDuration);
+    }
+    public static void WavesReset()
+    {
+        OnWavesReset?.Invoke();
+    }
+    public static void GameWon()
+    {
+        OnGameWon?.Invoke();
     }
 }
