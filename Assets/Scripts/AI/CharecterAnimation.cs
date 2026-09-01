@@ -95,7 +95,6 @@ public class CharecterAnimation : MonoBehaviour
         if (Mathf.Approximately(directionX, 0f))return;
 
         bool facingLeft = directionX < 0;
-
         spriteRenderer.flipX = facingLeft;
 
         Vector3 hitBoxPosition = charecterHitBox.transform.localPosition;

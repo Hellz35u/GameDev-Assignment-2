@@ -19,13 +19,24 @@ public class CharacterHitBox : MonoBehaviour
             enemiesCharactersTags = new HashSet<string>(enemiesTags.GetList());
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        HitGameObject(other.gameObject);
+    }
+
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (charectersHitThisAttack.Contains(other.gameObject)) return;
-        if (enemiesCharactersTags.Contains(other.tag))
+        HitGameObject(other.gameObject);
+    }
+
+    private void HitGameObject(GameObject go)
+    {
+        if (charectersHitThisAttack.Contains(go)) return;
+        if (enemiesCharactersTags.Contains(go.tag))
         {
             //need to handle attack on the enemy
-            charectersHitThisAttack.Add(other.gameObject);
+            charectersHitThisAttack.Add(go);
         }
     }
     public void ClearMemory()

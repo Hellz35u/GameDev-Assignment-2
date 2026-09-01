@@ -3,54 +3,65 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
-    private CharacterMovement characterMovement;
+    private CharacterActions characterActions;
     private GameObject targetGameObject = null;
     [SerializeField] private float distanceToAttack = 5f;
+    private float attackCooldownRemaining = 0f;
+    [SerializeField] private float secondsBetweenAtacks = 2.0f;
     private EnemiesTags enemiesTags = null;
 
-    private void Awake()
+    private void OnEnable()
     {
         TargetManager.GetInstance()?.RegisterTarget(gameObject);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         TargetManager.GetInstance()?.UnregisterTarget(gameObject);
     }
 
     void Start()
     {
-        characterMovement = GetComponent<CharacterMovement>();
-        if (characterMovement == null)
+        characterActions = GetComponent<CharacterActions>();
+        if (characterActions == null)
         {
-            Debug.LogError("can't find CharacterMovement script in this GameObject!");
+            Debug.LogError("can't find CharacterActions script in this GameObject!");
         }
         enemiesTags = GetComponent<EnemiesTags>();
-        if( enemiesTags == null )
+        if (enemiesTags == null)
         {
             Debug.LogError("can't find EnemiesTags script in this GameObject!");
         }
 
         //for tests
-
         targetGameObject = FindAnyObjectByType<PlayerController>()?.gameObject;
     }
 
     void FixedUpdate()
     {
-        if (characterMovement == null) return;
-        if(targetGameObject != null)
+        if (characterActions == null) return;
+
+        if (attackCooldownRemaining > 0f)
+        {
+            attackCooldownRemaining -= Time.fixedDeltaTime;
+        }
+
+        if (targetGameObject != null)
         {
             float xDistance = Mathf.Abs(targetGameObject.transform.position.x - transform.position.x);
-            if(xDistance <= distanceToAttack)
+            if (xDistance <= distanceToAttack)
             {
-                characterMovement.HandleMovement(0f);//stop
-                //attack
+                characterActions.Move(Vector2.zero);//stop
+                if (attackCooldownRemaining <= 0f)
+                {
+                    attackCooldownRemaining = secondsBetweenAtacks;
+                    characterActions.Attack();
+                }
             }
             else
             {
                 float xDirection = 0;
-                if(targetGameObject.transform.position.x < transform.position.x)
+                if (targetGameObject.transform.position.x < transform.position.x)
                 {
                     xDirection = -1;
                 }
@@ -58,13 +69,13 @@ public class AIController : MonoBehaviour
                 {
                     xDirection = 1;
                 }
-                characterMovement.HandleMovement(xDirection);
+                characterActions.Move(new Vector2(xDirection, 0f));
             }
         }
         else
         {
-            characterMovement.HandleMovement(0f);//stop
-            if(TargetManager.GetInstance() != null && enemiesTags != null)
+            characterActions.Move(Vector2.zero);//stop
+            if (TargetManager.GetInstance() != null && enemiesTags != null)
             {
                 //find next target
                 targetGameObject = TargetManager.GetInstance().GetClosestTarget(enemiesTags.GetList(), transform.position);
