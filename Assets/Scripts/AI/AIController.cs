@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+
 using UnityEngine;
+
 
 public class AIController : MonoBehaviour
 {
@@ -43,12 +44,18 @@ public class AIController : MonoBehaviour
             attackCooldownRemaining -= Time.fixedDeltaTime;
         }
 
+        Vector3 myPosition = transform.position;
         if (targetGameObject != null)
         {
-            float xDistance = Mathf.Abs(targetGameObject.transform.position.x - transform.position.x);
+            Vector3 targetPosition = targetGameObject.transform.position;
+
+            float xDifference = targetPosition.x - myPosition.x;
+            float xDistance = Mathf.Abs(xDifference);
+
             if (xDistance <= distanceToAttack)
             {
                 characterActions.Move(Vector2.zero);//stop
+                characterActions.SetFacing(xDifference);
                 if (attackCooldownRemaining <= 0f)
                 {
                     attackCooldownRemaining = secondsBetweenAtacks;
@@ -57,15 +64,7 @@ public class AIController : MonoBehaviour
             }
             else
             {
-                float xDirection = 0;
-                if (targetGameObject.transform.position.x < transform.position.x)
-                {
-                    xDirection = -1;
-                }
-                else
-                {
-                    xDirection = 1;
-                }
+                float xDirection = xDifference < 0 ? -1 : 1;
                 characterActions.Move(new Vector2(xDirection, 0f));
             }
         }
@@ -75,7 +74,7 @@ public class AIController : MonoBehaviour
             if (TargetManager.GetInstance() != null && enemiesTags != null)
             {
                 //find next target
-                targetGameObject = TargetManager.GetInstance().GetClosestTarget(enemiesTags.GetList(), transform.position);
+                targetGameObject = TargetManager.GetInstance().GetClosestTarget(enemiesTags.GetList(), myPosition);
             }
         }
     }

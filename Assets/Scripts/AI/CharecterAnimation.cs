@@ -94,7 +94,7 @@ public class CharecterAnimation : MonoBehaviour
     {
         animator.SetFloat(nameof(AnimationParameters.VelocityY), velocityY);
     }
-    private void FlipSprite(float directionX)
+    public void FlipSprite(float directionX)
     {
         if (Mathf.Approximately(directionX, 0f))return;
 

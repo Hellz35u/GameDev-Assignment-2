@@ -16,6 +16,11 @@ public class CharacterActions : MonoBehaviour
         charecterAnimation.SetVerticalVelocity(characterMovement.GetVerticalVelocity());
     }
 
+    public void SetFacing(float directionX)
+    {
+        charecterAnimation.FlipSprite(directionX);
+    }
+
     public void Move(Vector2 direction)
     {
         characterMovement.HandleMovement(direction.x);
