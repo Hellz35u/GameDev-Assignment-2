@@ -1,56 +1,62 @@
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
-using System.Collections;
-using System;
 
 public class WaveTextAnimator : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI waveText;
-    [SerializeField] private float duration = 0.2f;
+
+    [SerializeField] private float scaleDurationInSeconds = 0.2f;
+    [SerializeField] private float holdDurationInSeconds = 0.2f;
+    [SerializeField] private float fadeOutDurationInSeconds = 0.2f;
 
     private Tween tween;
     private Vector3 originalScale;
+    private Color originalColor;
 
     private void Start()
     {
         originalScale = transform.localScale;
+        originalColor = waveText.color;
         //GameEvents.OnWaveChanged += UpdateWaveText;
     }
 
-    private void UpdateWaveText(int waveNumber)
+    public void DisplayWaveText(string text)
     {
-        waveText.text = $"WAVE {waveNumber}";
-        StartCoroutine(PopingTime(WaveAnimation, 1));
+        waveText.text = text;
+        TextAnimation();
     }
 
-    private void WaveAnimation()
+    private void TextAnimation()
     {
         if (tween != null && tween.IsActive())
         {
             tween.Kill();
         }
-        transform.localScale = Vector3.zero;
-        Sequence sequence = DOTween.Sequence();
-
-        sequence.Append(transform
-        .DOScale(originalScale, duration)
-        .SetEase(Ease.InOutBounce));
-
-        tween = sequence;
-    }
-
-    private IEnumerator PopingTime(Action waveAnimation, int waitingTime)
-    {
-        waveText.enabled = false;
-
-        yield return new WaitForSeconds(waitingTime);
 
         waveText.enabled = true;
-        waveAnimation();
+        waveText.color = originalColor;
+        
+        transform.localScale = Vector3.zero;
+        Color transparent = originalColor;
+        transparent.a = 0f;
 
-        yield return new WaitForSeconds(waitingTime);
+        Sequence sequence = DOTween.Sequence();
 
-        waveText.enabled = false;
+        //from zero size to original scale
+        sequence.Append(transform
+        .DOScale(originalScale, scaleDurationInSeconds)
+        .SetEase(Ease.InOutBounce));
+
+        //wait some time to show the text
+        sequence.AppendInterval(holdDurationInSeconds);
+
+        //the text is fading out
+        sequence.Append(waveText.DOColor(transparent, fadeOutDurationInSeconds));
+
+        //at the end after the fading out the visablity is set to false
+        sequence.OnComplete(() => waveText.enabled = false);
+
+        tween = sequence;
     }
 }
