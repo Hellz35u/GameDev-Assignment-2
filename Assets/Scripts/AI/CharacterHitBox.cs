@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterHitBox : MonoBehaviour
 {
-    private HashSet<GameObject> charectersHitThisAttack = new();
+    private HashSet<GameObject> charactersHitThisAttack = new();
     private HashSet<string> enemiesCharactersTags = new();
 
     private void Awake()
@@ -32,16 +32,16 @@ public class CharacterHitBox : MonoBehaviour
 
     private void HitGameObject(GameObject go)
     {
-        if (charectersHitThisAttack.Contains(go)) return;
+        if (charactersHitThisAttack.Contains(go)) return;
         if (enemiesCharactersTags.Contains(go.tag))
         {
             //need to handle attack on the enemy
-            charectersHitThisAttack.Add(go);
+            charactersHitThisAttack.Add(go);
         }
     }
     public void ClearMemory()
     {
-        charectersHitThisAttack.Clear();
+        charactersHitThisAttack.Clear();
     }
 
 }

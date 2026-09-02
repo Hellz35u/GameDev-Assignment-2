@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class CharecterAnimation : MonoBehaviour
+public class CharacterAnimation : MonoBehaviour
 {
     private Animator animator = null;
     private SpriteRenderer spriteRenderer = null;
-    private CharacterHitBox charecterHitBox = null;
+    private CharacterHitBox characterHitBox = null;
     private Collider2D triggerHitBox = null;
     [SerializeField] private int maxAttackIndex = 3;
     private int attackIndex = 0;
@@ -22,13 +22,13 @@ public class CharecterAnimation : MonoBehaviour
             Debug.LogError("the GameObject dont have Sprite Renderer , thats wired!");
         }
 
-        charecterHitBox = GetComponentInChildren<CharacterHitBox>();
-        if(charecterHitBox != null)
+        characterHitBox = GetComponentInChildren<CharacterHitBox>();
+        if(characterHitBox != null)
         {
-            triggerHitBox = charecterHitBox.GetComponent<Collider2D>();
+            triggerHitBox = characterHitBox.GetComponent<Collider2D>();
             if (triggerHitBox == null)
             {
-                Debug.LogError("the GameObject children with charecterHitBox dont have Collider2D!");
+                Debug.LogError("the GameObject children with characterHitBox dont have Collider2D!");
             }
             else if (triggerHitBox.isTrigger == false)
             {
@@ -37,7 +37,7 @@ public class CharecterAnimation : MonoBehaviour
         }
         else
         {
-            Debug.LogError("this GameObject dont have Children or CharecterHitBox in Children!");
+            Debug.LogError("this GameObject dont have Children or CharacterHitBox in Children!");
         }
     }
 
@@ -53,8 +53,8 @@ public class CharecterAnimation : MonoBehaviour
 
     private void DisableHitBox()
     {
-        if (charecterHitBox == null || triggerHitBox == null) return;
-        charecterHitBox.ClearMemory();
+        if (characterHitBox == null || triggerHitBox == null) return;
+        characterHitBox.ClearMemory();
         triggerHitBox.enabled = false;
     }
     public void SetMovement(Vector2 direction)
@@ -96,12 +96,12 @@ public class CharecterAnimation : MonoBehaviour
         bool facingLeft = directionX < 0;
         spriteRenderer.flipX = facingLeft;
 
-        if (charecterHitBox == null) return;
-        Vector3 hitBoxPosition = charecterHitBox.transform.localPosition;
+        if (characterHitBox == null) return;
+        Vector3 hitBoxPosition = characterHitBox.transform.localPosition;
 
         hitBoxPosition.x = Mathf.Abs(hitBoxPosition.x) * (facingLeft ? -1 : 1);
 
-        charecterHitBox.transform.localPosition = hitBoxPosition;
+        characterHitBox.transform.localPosition = hitBoxPosition;
     }
     enum AnimationParameters
     {

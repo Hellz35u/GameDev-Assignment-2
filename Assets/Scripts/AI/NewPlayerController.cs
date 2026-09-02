@@ -15,7 +15,6 @@ public class NewPlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        TargetManager.GetInstance()?.RegisterTarget(gameObject);
         InputEvents.Move += characterActions.Move;
         InputEvents.Jump += characterActions.TryJump;
         InputEvents.Attack += characterActions.Attack;
@@ -30,6 +29,5 @@ public class NewPlayerController : MonoBehaviour
         InputEvents.Attack -= characterActions.Attack;
         PlayerEvents.Death -= characterActions.Die;
         PlayerEvents.TakeHit -= characterActions.TakeHit;
-        TargetManager.GetInstance()?.UnregisterTarget(gameObject);
     }
 }

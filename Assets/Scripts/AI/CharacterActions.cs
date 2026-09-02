@@ -3,50 +3,74 @@ using UnityEngine;
 public class CharacterActions : MonoBehaviour
 {
     private CharacterMovement characterMovement;
-    private CharecterAnimation charecterAnimation;
+    private CharacterAnimation characterAnimation;
 
     private void Awake()
     {
         characterMovement = GetComponent<CharacterMovement>();
-        charecterAnimation = GetComponent<CharecterAnimation>();
+        characterAnimation = GetComponent<CharacterAnimation>();
+    }
+
+    private void OnEnable()
+    {
+        if (TargetManager.GetInstance() == null)
+        {
+            Debug.LogError($"'{gameObject.name}' can't register to Target Manager");
+        }
+        else
+        {
+            TargetManager.GetInstance().RegisterTarget(gameObject);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (TargetManager.GetInstance() == null)
+        {
+            Debug.LogWarning($"'{gameObject.name}' can't unregister from Target Manager ,\n if the game is ending ignore this message!");
+        }
+        else
+        {
+            TargetManager.GetInstance().UnregisterTarget(gameObject);
+        }
     }
 
     private void Update()
     {
-        charecterAnimation.SetVerticalVelocity(characterMovement.GetVerticalVelocity());
+        characterAnimation.SetVerticalVelocity(characterMovement.GetVerticalVelocity());
     }
 
     public void SetFacing(float directionX)
     {
-        charecterAnimation.FlipSprite(directionX);
+        characterAnimation.FlipSprite(directionX);
     }
 
     public void Move(Vector2 direction)
     {
         characterMovement.HandleMovement(direction.x);
-        charecterAnimation.SetMovement(direction);
+        characterAnimation.SetMovement(direction);
     }
 
     public void TryJump()
     {
         if (characterMovement.HandleJump())
         {
-            charecterAnimation.PlayJump();
+            characterAnimation.PlayJump();
         }
     }
 
     public void Attack()
     {
-        charecterAnimation.PlayAttack();
+        characterAnimation.PlayAttack();
     }
 
     public void Die()
     {
-        charecterAnimation.PlayDeath();
+        characterAnimation.PlayDeath();
     }
 
     public void TakeHit()
     {
-        charecterAnimation.PlayHit();
+        characterAnimation.PlayHit();
     }
 }
