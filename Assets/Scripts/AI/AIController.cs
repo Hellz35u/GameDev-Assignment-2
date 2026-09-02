@@ -27,7 +27,7 @@ public class AIController : MonoBehaviour
     {
         if (TargetManager.GetInstance() == null)
         {
-            Debug.LogError($"'{gameObject.name}' can't unregister to Target Manager ,\n if the game is ending ignore this msg!");
+            Debug.LogWarning($"'{gameObject.name}' can't unregister to Target Manager ,\n if the game is ending ignore this message!");
         }
         else
         {
@@ -53,43 +53,72 @@ public class AIController : MonoBehaviour
     {
         if (characterActions == null) return;
 
-        if (attackCooldownRemaining > 0f)
-        {
-            attackCooldownRemaining -= Time.fixedDeltaTime;
-        }
+        CoolDownAttack(Time.fixedDeltaTime);
 
         Vector3 myPosition = transform.position;
-        if (targetGameObject != null && targetGameObject.activeInHierarchy == true)
+        if (HasValidTarget())
         {
             Vector3 targetPosition = targetGameObject.transform.position;
 
             float xDifference = targetPosition.x - myPosition.x;
             float xDistance = Mathf.Abs(xDifference);
-
+            float directionOfTarget = Mathf.Sign(xDifference);
             if (xDistance <= distanceToAttack)
             {
-                characterActions.Move(Vector2.zero);//stop
-                characterActions.SetFacing(xDifference);
-                if (attackCooldownRemaining <= 0f)
-                {
-                    attackCooldownRemaining = secondsBetweenAtacks;
-                    characterActions.Attack();
-                }
+                TryAttackTarget(directionOfTarget);
             }
             else
             {
-                float xDirection = xDifference < 0 ? -1 : 1;
-                characterActions.Move(new Vector2(xDirection, 0f));
+                characterActions.Move(new Vector2(directionOfTarget, 0f));
             }
         }
         else
         {
             characterActions.Move(Vector2.zero);//stop
-            if (TargetManager.GetInstance() != null && enemiesTags != null)
-            {
-                //find next target
-                targetGameObject = TargetManager.GetInstance().GetClosestTarget(enemiesTags.GetList(), myPosition);
-            }
+            FindNewClosestTarget();
         }
+    }
+
+
+    private void TryAttackTarget(float facingDirection)
+    {
+        characterActions.Move(Vector2.zero);//stop before attack
+        characterActions.SetFacing(facingDirection);
+        if (attackCooldownRemaining <= 0f)
+        {
+            attackCooldownRemaining = secondsBetweenAtacks;
+            characterActions.Attack();
+        }
+    }
+
+    private void FindNewClosestTarget()
+    {
+        if (TargetManager.GetInstance() != null && enemiesTags != null)
+        {
+            targetGameObject = TargetManager.GetInstance().GetClosestTarget(enemiesTags.GetList(), transform.position);
+        }
+    }
+
+
+    private bool HasValidTarget()
+    {
+        return targetGameObject != null && targetGameObject.activeInHierarchy == true;
+    }
+
+    private void CoolDownAttack(float secondsFromLastCheck)
+    {
+        if (IsNeedToCoolDown())
+        {
+            attackCooldownRemaining -= secondsFromLastCheck;
+        }
+        else
+        {
+            attackCooldownRemaining = 0f;//to fix negative values
+        }
+    }
+
+    private bool IsNeedToCoolDown()
+    {
+        return attackCooldownRemaining > 0f;
     }
 }
