@@ -52,8 +52,4 @@ public class WaveManager : MonoBehaviour
 
         }
     }
-    public void RemoveEnemyFromList(GameObject enemy)
-    {
-        currentEnemiesInScene.Remove(enemy);
-    }
 }
