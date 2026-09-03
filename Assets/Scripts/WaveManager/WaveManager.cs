@@ -1,87 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private List<WaveData> waves;
-
-    private int currentWaveIndex = 0;
-    private bool isGameFinished;
-
-    private void OnEnable()
-    {
-        // GameEvents.OnTimerEnded += EndWave;
-    }
-
-    private void OnDisable()
-    {
-        // GameEvents.OnTimerEnded -= EndWave;
-    }
+    [SerializeField] private List<GameObject> currentEnemiesInScene;
+    
+    private bool isGameFinished = false;
+    private List<GameObject> enemiesNeedToSpwan = new List<GameObject>();
+    private List<Vector3> spawnPositions = new List<Vector3>();
+    private int currentWaveNumber = 0;
 
     private void Start()
     {
+        PositionToSpawnEnemie[] spawnPositionArray = FindObjectsByType<PositionToSpawnEnemie>(FindObjectsSortMode.None);
+        foreach (PositionToSpawnEnemie sp in spawnPositionArray)
+        {
+            spawnPositions.Add(sp.GetPositon());
+        }
         StartWave();
-    }
 
+    }
     private void StartWave()
     {
-        if (isGameFinished)
-            return;
-
-        WaveData currentWave = waves[currentWaveIndex];
-        Debug.Log($"Wave {currentWaveIndex + 1} started");
-        // GameEvents.WaveStarted(currentWaveIndex + 1, currentWave.waveDuration);
-
-        StartCoroutine(SpawnWave(currentWave));
+        StartCoroutine(RunWave(waves[currentWaveNumber].GetSpawnDuration()));
     }
 
-    private IEnumerator SpawnWave(WaveData wave)
+    private void SpawnEnemy(Vector3 SpawnPosition)
     {
-        foreach (GameObject enemy in wave.enemies)
-        {
-            Instantiate(enemy, transform.position, Quaternion.identity);
+        if (enemiesNeedToSpwan.Count == 0)
+            return;
 
-            yield return new WaitForSeconds(wave.spawnInterval);
+        GameObject prefab = enemiesNeedToSpwan.First<GameObject>();
+        GameObject spawnedEnemy = Instantiate(prefab,SpawnPosition, Quaternion.identity);
+        enemiesNeedToSpwan.Remove(prefab);
+        currentEnemiesInScene.Add(spawnedEnemy);
+    }
+    private int GetPositionsRandomIndex()
+    {
+        return Random.Range(0, spawnPositions.Count);
+    }
+    private IEnumerator RunWave(float spawnDuration)
+    {
+        while (currentEnemiesInScene.Count <= waves[currentWaveNumber].GetMaxEnemiesInScene())
+        {
+            int randomIndex = GetPositionsRandomIndex();
+            SpawnEnemy(spawnPositions[randomIndex]);
+            yield return new WaitForSeconds(spawnDuration);
+
         }
     }
-
-    private void EndWave()
+    public void RemoveEnemyFromList(GameObject enemy)
     {
-        if (isGameFinished)
-            return;
-
-        Debug.Log($"Wave {currentWaveIndex + 1} ended");
-        if (currentWaveIndex >= waves.Count - 1)
-        {
-            WinGame();
-            return;
-        }
-
-        currentWaveIndex++;
-        StartWave();
-    }
-
-    public void ResetWaves()
-    {
-        StopAllCoroutines();
-        currentWaveIndex = 0;
-        isGameFinished = false;
-
-        // GameEvents.WavesReset();
-        StartWave();
-    }
-
-    private void WinGame()
-    {
-        isGameFinished = true;
-        StopAllCoroutines();
-
-        Debug.Log("Player Won");
-        // GameEvents.GameWon();
-    }
-    public int GetCurrentWave()
-    {
-        return currentWaveIndex + 1;
+        currentEnemiesInScene.Remove(enemy);
     }
 }

@@ -1,10 +1,33 @@
-using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
-[System.Serializable]
-public class WaveData
+public class WaveData : MonoBehaviour
 {
-    public List<GameObject> enemies;
-    public float spawnInterval = 2f;
-    public float waveDuration = 60f;
+    [SerializeField] private float waveDuration;
+    [SerializeField] private int maxEnemiesInScene;
+    [SerializeField] private List<GameObject> enemies;
+    [SerializeField] private string waveName;
+    [SerializeField] private float spawnDuration;
+
+    public float GetWaveDuration()
+    {
+        return waveDuration;
+    }
+    public int GetMaxEnemiesInScene()
+    {
+        return maxEnemiesInScene;
+    }
+    public List<GameObject> GetEnemiesList()
+    {
+        return enemies;
+    }
+    public string GetWaveName()
+    {
+        return waveName;
+    }
+    public float GetSpawnDuration()
+    {
+        return spawnDuration;
+    }
 }
