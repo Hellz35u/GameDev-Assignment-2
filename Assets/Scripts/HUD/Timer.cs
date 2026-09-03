@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class Timer : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Timer : MonoBehaviour
 
     private float timeRemaining;
     private bool isRunning;
+    private Action onTimerEnd;
 
     private void Start()
     {
@@ -32,20 +34,23 @@ public class Timer : MonoBehaviour
         {
             timeRemaining = 0f;
             isRunning = false;
+            onTimerEnd?.Invoke();
+            onTimerEnd = null;
             UpdateTimerText();
-            GameEvents.TimerEnded();
-
             Debug.Log("Timer finished");
             return;
         }
         UpdateTimerText();
     }
-
-    public void StartTimer(float duration)
+    public void StartTimer(float duration, Action endTimerEvent = null)
     {
         timeRemaining = duration;
         isRunning = true;
         UpdateTimerText();
+        if (endTimerEvent != null)
+        {
+            onTimerEnd += endTimerEvent;
+        }
     }
 
     public void StopTimer()

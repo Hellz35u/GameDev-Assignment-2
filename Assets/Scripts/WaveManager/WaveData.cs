@@ -31,4 +31,8 @@ public class WaveData : MonoBehaviour
     {
         return spawnDuration;
     }
+    public float GetTimerDuration()
+    {
+        return timerDuration;
+    }
 }

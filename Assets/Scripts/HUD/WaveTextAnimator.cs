@@ -18,7 +18,6 @@ public class WaveTextAnimator : MonoBehaviour
     {
         originalScale = transform.localScale;
         originalColor = waveText.color;
-        //GameEvents.OnWaveChanged += UpdateWaveText;
     }
 
     public void DisplayWaveText(string text)

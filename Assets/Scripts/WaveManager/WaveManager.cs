@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private List<WaveData> waves;
     [SerializeField] private List<GameObject> currentEnemiesInScene;
-    
-    private bool isGameFinished = false;
+   
     private List<GameObject> enemiesNeedToSpwan = new List<GameObject>();
     private List<Vector3> spawnPositions = new List<Vector3>();
-    private int currentWaveNumber = 0;
+    private WaveTextAnimator waveTextAnimator;
+    private Timer timer;
 
     private void Start()
     {
@@ -25,7 +26,7 @@ public class WaveManager : MonoBehaviour
     }
     private void StartWave()
     {
-        StartCoroutine(RunWave(waves[currentWaveNumber].GetSpawnDuration()));
+        StartCoroutine(RunWave(waves.First<WaveData>().GetSpawnDuration()));
     }
 
     private void SpawnEnemy(Vector3 SpawnPosition)
@@ -44,12 +45,23 @@ public class WaveManager : MonoBehaviour
     }
     private IEnumerator RunWave(float spawnDuration)
     {
-        while (currentEnemiesInScene.Count <= waves[currentWaveNumber].GetMaxEnemiesInScene())
+        WaveData wave = waves.First<WaveData>();
+        waveTextAnimator.DisplayWaveText(wave.GetWaveName());
+        timer.StartTimer(wave.GetTimerDuration());
+        while (currentEnemiesInScene.Count < waves.First<WaveData>().GetMaxEnemiesInScene())
         {
             int randomIndex = GetPositionsRandomIndex();
             SpawnEnemy(spawnPositions[randomIndex]);
             yield return new WaitForSeconds(spawnDuration);
-
         }
+        if (waves.Count == 0)
+            yield break;
+        
+        //function that check if all enemies died on the wave and clean currentEnemiesInScene
+        
+    }
+    private void EndWave()
+    {
+
     }
 }
