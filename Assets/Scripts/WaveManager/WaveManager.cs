@@ -56,12 +56,19 @@ public class WaveManager : MonoBehaviour
         }
         if (waves.Count == 0)
             yield break;
-        
+
         //function that check if all enemies died on the wave and clean currentEnemiesInScene
         
     }
-    private void EndWave()
+    private void EnemyListCleaner(List<GameObject> list)
     {
-
+        for(int i = 0; i < list.Count; i++)
+        {
+            if(list[i] == null)
+            {
+                list.RemoveAt(i);
+            }
+        }
     }
+   
 }
