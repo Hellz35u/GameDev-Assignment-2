@@ -9,7 +9,6 @@ public class WaveData : MonoBehaviour
     [SerializeField] private List<GameObject> enemies;
     [SerializeField] private string waveName;
     [SerializeField] private float spawnDuration;
-    [SerializeField] private float timerDuration;
 
     public float GetWaveDuration()
     {
@@ -30,9 +29,5 @@ public class WaveData : MonoBehaviour
     public float GetSpawnDuration()
     {
         return spawnDuration;
-    }
-    public float GetTimerDuration()
-    {
-        return timerDuration;
     }
 }

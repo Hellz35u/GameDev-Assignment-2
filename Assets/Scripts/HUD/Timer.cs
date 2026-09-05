@@ -5,22 +5,22 @@ using System;
 public class Timer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private float waveDuration = 60f;
-
     private float timeRemaining;
     private bool isRunning;
     private Action onTimerEnd;
 
-    private void Start()
+    private void Awake()
     {
         if (timerText == null)
         {
-            Debug.LogError("Timer: timerText is not assigned!");
+            Debug.LogError("Timer: TextMeshProUGUI component not found!");
             enabled = false;
             return;
         }
 
-        StartTimer(waveDuration);
+        timeRemaining = 0f;
+        isRunning = false;
+        UpdateTimerText();
     }
 
     private void Update()
@@ -49,20 +49,13 @@ public class Timer : MonoBehaviour
         UpdateTimerText();
         if (endTimerEvent != null)
         {
-            onTimerEnd += endTimerEvent;
+            onTimerEnd = endTimerEvent;
         }
     }
 
     public void StopTimer()
     {
         isRunning = false;
-    }
-
-    public void ResetTimer(float duration)
-    {
-        timeRemaining = duration;
-        isRunning = false;
-        UpdateTimerText();
     }
 
     public float GetTimeRemaining()
@@ -74,18 +67,18 @@ public class Timer : MonoBehaviour
     {
         return timeRemaining <= 0f;
     }
-    private void OnEnable()
-    {
-        GameEvents.OnWaveStarted += HandleWaveStarted;
-    }
-    private void OnDisable()
-    {
-        GameEvents.OnWaveStarted -= HandleWaveStarted;
-    }
-    private void HandleWaveStarted(int waveNumber, float duration)
-    {
-        StartTimer(duration);
-    }
+    //private void OnEnable()
+    //{
+    //    GameEvents.OnWaveStarted += HandleWaveStarted;
+    //}
+    //private void OnDisable()
+    //{
+    //    GameEvents.OnWaveStarted -= HandleWaveStarted;
+    //}
+    //private void HandleWaveStarted(int waveNumber, float duration)
+    //{
+    //    StartTimer(duration);
+    //}
     private void UpdateTimerText()
     {
         if (timerText == null)

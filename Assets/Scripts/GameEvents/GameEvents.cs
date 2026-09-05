@@ -1,7 +1,9 @@
 using System;
+using UnityEngine;
 
 public static class GameEvents
 {
+    public static event Action<GameObject> OnCharacterDeath;
     // Score
     public static event Action<int> OnScoreChanged;
 
@@ -17,7 +19,7 @@ public static class GameEvents
 
     // Game
     public static event Action OnGameWon;
-
+    
     public static void ScoreChanged(int score)
     {
         OnScoreChanged?.Invoke(score);

@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 286.2229, y: -345.58514}
-  m_SizeDelta: {x: -641.9493, y: -742.832}
+  m_AnchoredPosition: {x: 311, y: -203}
+  m_SizeDelta: {x: -641.9493, y: -434.8293}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3930351248267193905
 MonoBehaviour:
@@ -124,7 +124,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 2.0577087}
+  m_AnchoredPosition: {x: 0, y: 2.0577087}
   m_SizeDelta: {x: 0, y: 4.1155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4212786543551372798
@@ -199,7 +199,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.8000183, y: 2.0575867}
+  m_AnchoredPosition: {x: 0.8000488, y: 2.0575867}
   m_SizeDelta: {x: -3.5245, y: 4.1152}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8814176878727670833
@@ -424,7 +424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 6.899994, y: 0}
+  m_AnchoredPosition: {x: 6.9000244, y: 0}
   m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8657520139572975922
@@ -476,6 +476,7 @@ GameObject:
   - component: {fileID: 1442718687669370717}
   - component: {fileID: 2642200939479236093}
   - component: {fileID: 6839258882497184352}
+  - component: {fileID: 8991896022516586579}
   m_Layer: 5
   m_Name: TimerText
   m_TagString: Untagged
@@ -602,6 +603,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8991896022516586579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4505410629930376719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1130d28574488054690eeae062f411b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Timer
+  timerText: {fileID: 6839258882497184352}
 --- !u!1 &5307934266672004554
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,7 +767,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveTextAnimator
   waveText: {fileID: 3001878640066770667}
-  duration: 0.9
+  scaleDurationInSeconds: 0.2
+  holdDurationInSeconds: 0.2
+  fadeOutDurationInSeconds: 0.2
 --- !u!1 &7927890496157100783
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +783,7 @@ GameObject:
   - component: {fileID: 1295574477793436104}
   - component: {fileID: 8607436839368517225}
   - component: {fileID: 4784594003004579200}
+  - component: {fileID: 5788087202792658276}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -873,4 +890,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Timer
   timerText: {fileID: 6839258882497184352}
-  waveDuration: 60
+--- !u!114 &5788087202792658276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7927890496157100783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0856ad97402a826448f0804ad04e0eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveTextAnimator
+  waveText: {fileID: 3001878640066770667}
+  scaleDurationInSeconds: 0.2
+  holdDurationInSeconds: 0.2
+  fadeOutDurationInSeconds: 0.2
