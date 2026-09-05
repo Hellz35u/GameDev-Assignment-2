@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ public class WaveManager : MonoBehaviour
    
     private List<GameObject> enemiesNeedToSpwan = new List<GameObject>();
     private List<Vector3> spawnPositions = new List<Vector3>();
+    private bool waveEnded;
     private WaveTextAnimator waveTextAnimator;
     private Timer timer;
 
@@ -21,13 +23,9 @@ public class WaveManager : MonoBehaviour
         {
             spawnPositions.Add(sp.GetPositon());
         }
-        StartWave();
 
     }
-    private void StartWave()
-    {
-        StartCoroutine(RunWave(waves.First<WaveData>().GetSpawnDuration()));
-    }
+    
 
     private void SpawnEnemy(Vector3 SpawnPosition)
     {
@@ -41,14 +39,12 @@ public class WaveManager : MonoBehaviour
     }
     private int GetPositionsRandomIndex()
     {
-        return Random.Range(0, spawnPositions.Count);
+        return UnityEngine.Random.Range(0, spawnPositions.Count);
     }
     private IEnumerator RunWave(float spawnDuration)
     {
-        WaveData wave = waves.First<WaveData>();
-        waveTextAnimator.DisplayWaveText(wave.GetWaveName());
-        timer.StartTimer(wave.GetTimerDuration());
-        while (currentEnemiesInScene.Count < waves.First<WaveData>().GetMaxEnemiesInScene())
+        StartWave();
+        for (int i = 0; i < spawnPositions.Count; i++)
         {
             int randomIndex = GetPositionsRandomIndex();
             SpawnEnemy(spawnPositions[randomIndex]);
@@ -57,18 +53,39 @@ public class WaveManager : MonoBehaviour
         if (waves.Count == 0)
             yield break;
 
-        //function that check if all enemies died on the wave and clean currentEnemiesInScene
+        
         
     }
-    private void EnemyListCleaner(List<GameObject> list)
+    private void StartWave()
     {
-        for(int i = 0; i < list.Count; i++)
+        if(waves.Count != 0)
         {
-            if(list[i] == null)
+            waveEnded = false;
+            WaveData wave = waves.First<WaveData>();
+            waveTextAnimator.DisplayWaveText(wave.GetWaveName());
+            timer.StartTimer(wave.GetTimerDuration(), EndWaveByTime);
+        }
+        return;
+    }
+    private void EndWaveByTime()
+    {
+        if (waveEnded)
+            return;
+        
+        waveEnded = true;
+
+        timer.StopTimer();
+
+        foreach (GameObject enemy in currentEnemiesInScene)
+        {
+            if (enemy != null)
             {
-                list.RemoveAt(i);
+                Destroy(enemy);
             }
         }
+
+        currentEnemiesInScene.Clear();
+        waves.RemoveAt(0);
     }
    
 }
