@@ -768,8 +768,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveTextAnimator
   waveText: {fileID: 3001878640066770667}
   scaleDurationInSeconds: 0.2
-  holdDurationInSeconds: 0.2
-  fadeOutDurationInSeconds: 0.2
+  holdDurationInSeconds: 0.5
+  fadeOutDurationInSeconds: 0.3
 --- !u!1 &7927890496157100783
 GameObject:
   m_ObjectHideFlags: 0

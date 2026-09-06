@@ -17,7 +17,6 @@ public class Timer : MonoBehaviour
             enabled = false;
             return;
         }
-
         timeRemaining = 0f;
         isRunning = false;
         UpdateTimerText();
@@ -27,6 +26,13 @@ public class Timer : MonoBehaviour
     {
         if (!isRunning)
             return;
+
+        if (float.IsNaN(timeRemaining) || float.IsInfinity(timeRemaining))
+        {
+            Debug.LogError("Timer: timeRemaining contains an invalid value!");
+            isRunning = false;
+            return;
+        }
 
         timeRemaining -= Time.deltaTime;
 
@@ -42,8 +48,27 @@ public class Timer : MonoBehaviour
         }
         UpdateTimerText();
     }
+
     public void StartTimer(float duration, Action endTimerEvent = null)
     {
+        if (float.IsNaN(duration) || float.IsInfinity(duration))
+        {
+            Debug.LogError("Timer: duration contains an invalid value!");
+            return;
+        }
+
+        if (duration < 0f)
+        {
+            Debug.LogError("Timer: duration cannot be negative!");
+            return;
+        }
+
+        if (timerText == null)
+        {
+            Debug.LogError("Timer: timerText is not assigned!");
+            return;
+        }
+
         timeRemaining = duration;
         isRunning = true;
         UpdateTimerText();
@@ -67,23 +92,17 @@ public class Timer : MonoBehaviour
     {
         return timeRemaining <= 0f;
     }
-    //private void OnEnable()
-    //{
-    //    GameEvents.OnWaveStarted += HandleWaveStarted;
-    //}
-    //private void OnDisable()
-    //{
-    //    GameEvents.OnWaveStarted -= HandleWaveStarted;
-    //}
-    //private void HandleWaveStarted(int waveNumber, float duration)
-    //{
-    //    StartTimer(duration);
-    //}
+
     private void UpdateTimerText()
     {
         if (timerText == null)
             return;
 
+        if (float.IsNaN(timeRemaining) || float.IsInfinity(timeRemaining))
+        {
+            Debug.LogError("Timer: Cannot update text because timeRemaining is invalid!");
+            return;
+        }
         int minutes = Mathf.FloorToInt(timeRemaining / 60);
         int seconds = Mathf.FloorToInt(timeRemaining % 60);
         timerText.text = $"{minutes:00}:{seconds:00}";

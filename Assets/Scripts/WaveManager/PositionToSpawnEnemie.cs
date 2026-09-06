@@ -3,7 +3,7 @@ using UnityEngine;
 public class PositionToSpawnEnemie : MonoBehaviour
 {
     [SerializeField] private float rangeX = 10f;
-
+    //fix the range position to adapt the map scale;
     public Vector3 GetRandomPosition()
     {
         float randomX = Random.Range(
