@@ -4,16 +4,17 @@ using UnityEngine;
 public static class GameEvents
 {
     public static event Action<GameObject> OnCharacterDeath;
-    // Score
+    public static event Action<GameObject,int> OnCharacterTakeHit;
+
+    public static event Action OnPlayerDeath;
+    public static event Action<int> OnPlayerTakeHit;
+
     public static event Action<int> OnScoreChanged;
 
-    // Health
     public static event Action<float> OnHealthChanged;
 
-    // Timer
     public static event Action OnTimerEnded;
 
-    // Waves
     public static event Action<int, float> OnWaveStarted;
     public static event Action OnWavesReset;
 
