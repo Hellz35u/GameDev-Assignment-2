@@ -37,6 +37,8 @@ public class CharacterActions : MonoBehaviour
 
     private void Update()
     {
+        if (characterAnimation == null)
+            return;
         characterAnimation.SetVerticalVelocity(characterMovement.GetVerticalVelocity());
     }
 

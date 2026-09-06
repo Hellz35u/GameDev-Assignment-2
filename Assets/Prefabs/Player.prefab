@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8527708318906146810}
   - component: {fileID: 4251221833844695715}
-  - component: {fileID: 5860356967414028995}
+  - component: {fileID: 8211711259232842604}
   m_Layer: 0
   m_Name: SwordHitBox
   m_TagString: Untagged
@@ -79,7 +79,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5860356967414028995
+--- !u!114 &8211711259232842604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,9 +88,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1241981187600234169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0173609be1b7b8141b6592a7efdada58, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f01ad4627ff7ed438cbfaa5c983695c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SwordHitBox
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterHitBox
 --- !u!1 &3951331125366865660
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,12 +101,13 @@ GameObject:
   m_Component:
   - component: {fileID: 3634289585538115759}
   - component: {fileID: 8484746171027232677}
-  - component: {fileID: 8320022597824464233}
-  - component: {fileID: 2397548701637813349}
   - component: {fileID: 2495405341903838047}
-  - component: {fileID: 7056604209384978800}
   - component: {fileID: 4453488352018123850}
   - component: {fileID: 1215773413176316264}
+  - component: {fileID: 3478376812813373970}
+  - component: {fileID: 5751651952566835448}
+  - component: {fileID: 3485921997351444619}
+  - component: {fileID: 2201228335826773235}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -189,32 +190,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &8320022597824464233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3951331125366865660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f4d33fd92d1aa84fbab0051c84f1579, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterMovement
-  moveSpeed: 50
-  jumpForce: 8
---- !u!114 &2397548701637813349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3951331125366865660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66b98a60e82861844af07d3ebcb1dd4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!95 &2495405341903838047
 Animator:
   serializedVersion: 7
@@ -237,18 +212,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7056604209384978800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3951331125366865660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2cc245d034aed448b32ecf600d91c18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
 --- !u!61 &4453488352018123850
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -322,3 +285,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3478376812813373970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3951331125366865660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f69c4f2276dbca4f837abf571101396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NewPlayerController
+--- !u!114 &5751651952566835448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3951331125366865660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e9e21489f43ee499a85525a7694261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterActions
+--- !u!114 &3485921997351444619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3951331125366865660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4d33fd92d1aa84fbab0051c84f1579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterMovement
+  moveSpeed: 10
+  jumpForce: 8
+--- !u!114 &2201228335826773235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3951331125366865660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca23429e4cdb874d919d175745f73f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimation
+  maxAttackIndex: 3
