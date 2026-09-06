@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4251221833844695715}
   - component: {fileID: 8211711259232842604}
   m_Layer: 0
-  m_Name: SwordHitBox
+  m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,7 +246,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.02, y: -1.4}
+  m_Offset: {x: 0, y: -0.69}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -256,7 +256,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.09, y: 0.3}
+  m_Size: {x: 1.13, y: 1.78}
   m_EdgeRadius: 0
 --- !u!50 &1215773413176316264
 Rigidbody2D:
@@ -284,7 +284,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!114 &3478376812813373970
 MonoBehaviour:
   m_ObjectHideFlags: 0
