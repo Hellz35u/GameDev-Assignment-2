@@ -11,7 +11,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] Button exitButton;
     [SerializeField] Button infoButton;
     TextMeshProUGUI textMeshPro;
-    string firstLevelName = "Level1";
+    string firstLevelName = "FinalScene";
     string infoLevelName = "InfoScene";
  
     void Start()
