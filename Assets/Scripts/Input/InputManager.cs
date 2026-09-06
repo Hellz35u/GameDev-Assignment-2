@@ -8,6 +8,11 @@ public class InputManager : MonoBehaviour
     private void Awake()
     {
         systemInput = new();
+        if(systemInput == null)
+        {
+
+            Debug.LogError("fail to create an instance of SystemInput!");
+        }
     }
 
     private void OnEnable()
