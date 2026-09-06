@@ -42,17 +42,20 @@ public class CharacterActions : MonoBehaviour
 
     public void SetFacing(float directionX)
     {
+        if (Time.timeScale == 0f) return;
         characterAnimation.FlipSprite(directionX);
     }
 
     public void Move(Vector2 direction)
     {
+        if (Time.timeScale == 0f) return;
         characterMovement.HandleMovement(direction.x);
         characterAnimation.SetMovement(direction);
     }
 
     public void TryJump()
     {
+        if (Time.timeScale == 0f) return;
         if (characterMovement.HandleJump())
         {
             characterAnimation.PlayJump();
@@ -61,6 +64,7 @@ public class CharacterActions : MonoBehaviour
 
     public void Attack()
     {
+        if (Time.timeScale == 0f) return;
         characterAnimation.PlayAttack();
     }
 
