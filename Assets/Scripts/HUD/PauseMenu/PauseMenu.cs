@@ -24,7 +24,7 @@ public class PauseMenu : MonoBehaviour
     private void Awake()
     {
         InputEvents.Pause += PausePressed;
-        pauseMenuBackGroundImage = GetComponentInChildren<Image>();
+        pauseMenuBackGroundImage = GetComponentInChildren<Image>(true);
         if(pauseMenuBackGroundImage == null)
         {
             Debug.LogError("can't locate background image of the pause menu");
@@ -33,7 +33,7 @@ public class PauseMenu : MonoBehaviour
         {
             pauseMenuBackGroundImageOriginalColor = pauseMenuBackGroundImage.color;
             pauseMenuCanvas = pauseMenuBackGroundImage.gameObject;
-            pauseMenuButtons = pauseMenuBackGroundImage.GetComponentsInChildren<Button>();
+            pauseMenuButtons = pauseMenuBackGroundImage.GetComponentsInChildren<Button>(true);
             if(pauseMenuButtons.Length == 0)
             {
                 Debug.LogError("not found any button in the pause menu");
