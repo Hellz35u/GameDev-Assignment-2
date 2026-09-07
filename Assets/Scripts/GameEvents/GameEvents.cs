@@ -3,46 +3,56 @@ using UnityEngine;
 
 public static class GameEvents
 {
-    public static event Action<GameObject> OnCharacterDeath;
-    public static event Action<GameObject,int> OnCharacterTakeHit;
+    public static event Action<GameObject> CharacterDeath;
+    public static event Action<GameObject,int> CharacterTakeHit;
 
-    public static event Action OnPlayerDeath;
-    public static event Action<int> OnPlayerTakeHit;
+    public static event Action PlayerDeath;
+    public static event Action<int> PlayerTakeHit;
 
-    public static event Action<int> OnScoreChanged;
+    public static event Action<int> ScoreChanged;
 
-    public static event Action<float> OnHealthChanged;
+    public static event Action<int,int> PlayerHealthRatioUpdated;
 
-    public static event Action OnTimerEnded;
+    public static event Action TimerEnded;
 
-    public static event Action<int, float> OnWaveStarted;
-    public static event Action OnWavesReset;
+    public static event Action<int, float> WaveStarted;
+    public static event Action WavesReset;
 
     // Game
-    public static event Action OnGameWon;
+    public static event Action GameWon;
     
-    public static void ScoreChanged(int score)
+    public static void OnCharacterTakeHit(GameObject gameObject,int damage)
     {
-        OnScoreChanged?.Invoke(score);
+        CharacterTakeHit?.Invoke(gameObject, damage);
     }
-    public static void HealthChanged(float currentHealth)
+
+    public static void OnCharacterDeath(GameObject gameObject)
     {
-        OnHealthChanged?.Invoke(currentHealth);
+        CharacterDeath?.Invoke(gameObject);
     }
-    public static void TimerEnded()
+
+    public static void OnScoreChanged(int score)
     {
-        OnTimerEnded?.Invoke();
+        ScoreChanged?.Invoke(score);
     }
-    public static void WaveStarted(int waveNumber, float waveDuration)
+    public static void OnPlayerHealthUpdated(int currentHealth,int maxHealth)
     {
-        OnWaveStarted?.Invoke(waveNumber, waveDuration);
+        PlayerHealthRatioUpdated?.Invoke(currentHealth, maxHealth);
     }
-    public static void WavesReset()
+    public static void OnTimerEnded()
     {
-        OnWavesReset?.Invoke();
+        TimerEnded?.Invoke();
     }
-    public static void GameWon()
+    public static void OnWaveStarted(int waveNumber, float waveDuration)
     {
-        OnGameWon?.Invoke();
+        WaveStarted?.Invoke(waveNumber, waveDuration);
+    }
+    public static void OnWavesReset()
+    {
+        WavesReset?.Invoke();
+    }
+    public static void OnGameWon()
+    {
+        GameWon?.Invoke();
     }
 }
