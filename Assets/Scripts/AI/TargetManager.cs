@@ -20,7 +20,7 @@ public class TargetManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (singletoneInstance == this)
+        if (singletoneInstance != null && singletoneInstance == this)
         {
             singletoneInstance = null;
         }
