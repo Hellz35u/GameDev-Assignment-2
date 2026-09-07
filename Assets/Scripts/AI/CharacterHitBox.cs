@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CharacterHitBox : MonoBehaviour
 {
+    [SerializeField]private int damageGiven = 10;
     private HashSet<GameObject> charactersHitThisAttack = new();
     private HashSet<string> enemiesCharactersTags = new();
 
@@ -35,7 +36,7 @@ public class CharacterHitBox : MonoBehaviour
         if (charactersHitThisAttack.Contains(go)) return;
         if (enemiesCharactersTags.Contains(go.tag))
         {
-            //need to handle attack on the enemy
+            GameEvents.OnCharacterTakeHit(go , damageGiven);
             charactersHitThisAttack.Add(go);
         }
     }
