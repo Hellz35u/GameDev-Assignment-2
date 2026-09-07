@@ -11,11 +11,11 @@ public class ScoreUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        GameEvents.OnScoreChanged += ScoreUpdater;
+        GameEvents.ScoreChanged += ScoreUpdater;
     }
     private void OnDisable()
     {
-        GameEvents.OnScoreChanged -= ScoreUpdater;
+        GameEvents.ScoreChanged -= ScoreUpdater;
     }
     private void Start()
     {
