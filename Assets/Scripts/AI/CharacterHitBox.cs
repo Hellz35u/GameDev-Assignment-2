@@ -36,8 +36,8 @@ public class CharacterHitBox : MonoBehaviour
         if (charactersHitThisAttack.Contains(go)) return;
         if (enemiesCharactersTags.Contains(go.tag))
         {
-            GameEvents.OnCharacterTakeHit(go , damageGiven);
             charactersHitThisAttack.Add(go);
+            GameEvents.OnCharacterTakeHit(go , damageGiven);
         }
     }
     public void ClearMemory()

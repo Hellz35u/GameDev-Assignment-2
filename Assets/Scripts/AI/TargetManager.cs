@@ -8,6 +8,19 @@ public class TargetManager : MonoBehaviour
     private static Dictionary<string, HashSet<GameObject>> registeredTargetsByTag = new();
     private static HashSet<GameObject> emptyHashSet = new();
 
+    private void Awake()
+    {
+        GameEvents.CharacterDeath += OnCharacterDeath;
+    }
+
+    private void OnCharacterDeath(GameObject deathGameObject)
+    {
+        if (registeredTargetsByTag.ContainsKey(deathGameObject.tag))
+        {
+            registeredTargetsByTag[deathGameObject.tag].Remove(deathGameObject);
+        }
+    }
+
     private void OnDestroy()
     {
         registeredTargetsByTag.Clear();

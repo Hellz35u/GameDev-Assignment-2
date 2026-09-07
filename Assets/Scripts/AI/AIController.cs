@@ -18,6 +18,15 @@ public class AIController : MonoBehaviour
 
     void Start()
     {
+        GameEvents.CharacterDeath += (GameObject go) => 
+        { 
+            if (go == this.gameObject && this.tag == "Enemy")
+            {
+                //adding score on killing enemy
+                GameEvents.OnScoreChanged(100);
+            }
+        };
+
         characterActions = GetComponent<CharacterController>();
         if (characterActions == null)
         {
