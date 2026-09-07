@@ -1,37 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetManager : MonoBehaviour
 {
-    private Dictionary<string, HashSet<GameObject>> registeredTargetsByTag = new();
-    private HashSet<GameObject> emptyHashSet = new();
-    private static TargetManager singletoneInstance = null;
-
-    private void Awake()
-    {
-        if (singletoneInstance != null && singletoneInstance != this)
-        {
-            Destroy(gameObject);//destroy duplicate object
-            return;
-        }
-        singletoneInstance = this;
-    }
+    private static Dictionary<string, HashSet<GameObject>> registeredTargetsByTag = new();
+    private static HashSet<GameObject> emptyHashSet = new();
 
     private void OnDestroy()
     {
-        if (singletoneInstance != null && singletoneInstance == this)
-        {
-            singletoneInstance = null;
-        }
+        registeredTargetsByTag.Clear();
     }
 
-    public static TargetManager GetInstance()
-    {
-        return singletoneInstance;
-    }
-
-    public void RegisterTarget(GameObject target)
+    public static void RegisterTarget(GameObject target)
     {
         if (!registeredTargetsByTag.ContainsKey(target.tag))
         {
@@ -40,7 +22,7 @@ public class TargetManager : MonoBehaviour
         registeredTargetsByTag[target.tag].Add(target);
     }
 
-    public void UnregisterTarget(GameObject target)
+    public static void UnregisterTarget(GameObject target)
     {
         if (!registeredTargetsByTag.ContainsKey(target.tag))
         {
@@ -48,7 +30,7 @@ public class TargetManager : MonoBehaviour
         }
         registeredTargetsByTag[target.tag].Remove(target);
     }
-    public GameObject GetClosestTarget(List<string> tagsToLookFor, Vector3 originPosition)
+    public static GameObject GetClosestTarget(List<string> tagsToLookFor, Vector3 originPosition)
     {
         if (tagsToLookFor == null || tagsToLookFor.Count == 0)
         {

@@ -35,7 +35,7 @@ public class AIController : MonoBehaviour
     void FixedUpdate()
     {
         if (characterActions == null) return;
-
+        lastTakeTargetTime += Time.deltaTime;
         CoolDownAttack(Time.fixedDeltaTime);
 
         Vector3 myPosition = transform.position;
@@ -76,17 +76,14 @@ public class AIController : MonoBehaviour
 
     private void FindNewClosestTarget()
     {
-        if (TargetManager.GetInstance() != null && enemiesTags != null)
-        {
-            targetGameObject = TargetManager.GetInstance().GetClosestTarget(enemiesTags.GetList(), transform.position);
+            targetGameObject = TargetManager.GetClosestTarget(enemiesTags.GetList(), transform.position);
             lastTakeTargetTime = 0;
-        }
     }
 
 
     private bool HasValidTarget()
     {
-        return targetGameObject != null && targetGameObject.activeInHierarchy == true && lastTakeTargetTime >= reTargetLoop;
+        return targetGameObject != null && targetGameObject.activeInHierarchy == true && lastTakeTargetTime < reTargetLoop;
     }
 
     private void CoolDownAttack(float secondsFromLastCheck)

@@ -30,28 +30,18 @@ public class CharacterController : MonoBehaviour
     {
         GameEvents.CharacterDeath += OnCharacterDeath;
         GameEvents.CharacterTakeHit += OnCharacterTakeHit;
-        if (TargetManager.GetInstance() == null)
-        {
-            Debug.LogError($"'{gameObject.name}' can't register to Target Manager");
-        }
-        else
-        {
-            TargetManager.GetInstance().RegisterTarget(gameObject);
-        }
+
+        TargetManager.RegisterTarget(gameObject);
+
     }
 
     private void OnDisable()
     {
         GameEvents.CharacterDeath -= OnCharacterDeath;
         GameEvents.CharacterTakeHit -= OnCharacterTakeHit;
-        if (TargetManager.GetInstance() == null)
-        {
-            Debug.LogWarning($"'{gameObject.name}' can't unregister from Target Manager ,\n if the game is ending ignore this message!");
-        }
-        else
-        {
-            TargetManager.GetInstance().UnregisterTarget(gameObject);
-        }
+
+        TargetManager.UnregisterTarget(gameObject);
+        
     }
 
 
