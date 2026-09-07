@@ -1,21 +1,24 @@
 
+using System;
 using UnityEngine;
 
 
 public class AIController : MonoBehaviour
 {
-    private CharacterActions characterActions;
+    private CharacterController characterActions;
     private GameObject targetGameObject = null;
     [SerializeField] private float distanceToAttack = 5f;
     private float attackCooldownRemaining = 0f;
     [SerializeField] private float secondsBetweenAtacks = 2.0f;
+    [SerializeField] private float reTargetLoop = 2.0f;
+    private float lastTakeTargetTime = 0;
     private EnemiesTags enemiesTags = null;
 
 
 
     void Start()
     {
-        characterActions = GetComponent<CharacterActions>();
+        characterActions = GetComponent<CharacterController>();
         if (characterActions == null)
         {
             Debug.LogError("can't find CharacterActions script in this GameObject!");
@@ -26,6 +29,8 @@ public class AIController : MonoBehaviour
             Debug.LogError("can't find EnemiesTags script in this GameObject!");
         }
     }
+
+
 
     void FixedUpdate()
     {
@@ -74,13 +79,14 @@ public class AIController : MonoBehaviour
         if (TargetManager.GetInstance() != null && enemiesTags != null)
         {
             targetGameObject = TargetManager.GetInstance().GetClosestTarget(enemiesTags.GetList(), transform.position);
+            lastTakeTargetTime = 0;
         }
     }
 
 
     private bool HasValidTarget()
     {
-        return targetGameObject != null && targetGameObject.activeInHierarchy == true;
+        return targetGameObject != null && targetGameObject.activeInHierarchy == true && lastTakeTargetTime >= reTargetLoop;
     }
 
     private void CoolDownAttack(float secondsFromLastCheck)
