@@ -7,15 +7,13 @@ public class HealthBarUI : MonoBehaviour
     private TextMeshProUGUI healthPointsText;
     private Slider slider;
 
-    private float maxHealthBarPoints = 100f;
-
     private void OnEnable()
     {
-        GameEvents.OnHealthChanged += HealthBarUpdater;
+        GameEvents.PlayerHealthRatioUpdated += HealthBarUpdater;
     }
     private void OnDisable()
     {
-        GameEvents.OnHealthChanged -= HealthBarUpdater;
+        GameEvents.PlayerHealthRatioUpdated -= HealthBarUpdater;
     }
     private void Start()
     {
@@ -34,11 +32,10 @@ public class HealthBarUI : MonoBehaviour
             return;
         }
 
-        HealthBarUpdater(maxHealthBarPoints);
     }
-    private void HealthBarUpdater(float currentHealth)
+    private void HealthBarUpdater(int currentHealth,int maxHealth)
     {
-        slider.value = currentHealth / maxHealthBarPoints;
+        slider.value = currentHealth / (float)maxHealth;
         healthPointsText.text = $"{(int)currentHealth}";
     }
 }
