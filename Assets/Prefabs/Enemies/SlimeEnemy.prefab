@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f01ad4627ff7ed438cbfaa5c983695c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterHitBox
+  damageGiven: 20
 --- !u!1 &4134593790902385005
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +111,7 @@ GameObject:
   - component: {fileID: 3313336333694754562}
   - component: {fileID: 5935941306516759740}
   - component: {fileID: 7051896263393783871}
+  - component: {fileID: 2179371047607085905}
   m_Layer: 0
   m_Name: SlimeEnemy
   m_TagString: Enemy
@@ -390,3 +392,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e9e21489f43ee499a85525a7694261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterActions
+--- !u!114 &2179371047607085905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4134593790902385005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e875bde155221554b9f962a34bbc2a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterHealth
+  fullHealth: 100
+  currentHealth: 0

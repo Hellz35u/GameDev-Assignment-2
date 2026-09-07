@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 7357984377752275696}
   - component: {fileID: 1981985937944126939}
   - component: {fileID: 2600947763659880844}
+  - component: {fileID: 7143978273073272663}
   m_Layer: 0
   m_Name: RatEnemy
   m_TagString: Enemy
@@ -300,6 +301,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e9e21489f43ee499a85525a7694261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterActions
+--- !u!114 &7143978273073272663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6363487390091882034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e875bde155221554b9f962a34bbc2a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterHealth
+  fullHealth: 30
+  currentHealth: 0
 --- !u!1 &8950637580812200789
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,3 +406,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f01ad4627ff7ed438cbfaa5c983695c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterHitBox
+  damageGiven: 5
