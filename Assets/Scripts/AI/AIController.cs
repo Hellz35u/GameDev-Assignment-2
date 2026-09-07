@@ -18,15 +18,8 @@ public class AIController : MonoBehaviour
 
     void Start()
     {
-        GameEvents.CharacterDeath += (GameObject go) => 
-        { 
-            if (go == this.gameObject && this.tag == "Enemy")
-            {
-                //adding score on killing enemy
-                GameEvents.OnScoreChanged(100);
-            }
-        };
-
+        GameEvents.CharacterDeath += GiveScoreOnEnemyKill;
+       
         characterActions = GetComponent<CharacterController>();
         if (characterActions == null)
         {
@@ -38,8 +31,18 @@ public class AIController : MonoBehaviour
             Debug.LogError("can't find EnemiesTags script in this GameObject!");
         }
     }
-
-
+    private void OnDestroy()
+    {
+        GameEvents.CharacterDeath -= GiveScoreOnEnemyKill;
+    }
+    private void GiveScoreOnEnemyKill(GameObject go)
+    {
+        if (go == this.gameObject && this.tag == "Enemy")
+        {
+            //adding score on killing enemy
+            GameEvents.OnScoreChanged(100);
+        }
+    }
 
     void FixedUpdate()
     {

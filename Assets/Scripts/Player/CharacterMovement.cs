@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
@@ -37,12 +38,18 @@ public class CharacterMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.CompareTag("Ground"))
+        if (!other.gameObject.CompareTag("Ground"))
+            return;
+
+        foreach (ContactPoint2D contact in other.contacts)
         {
-            isGrounded = true;
+            if (contact.normal.y > 0.5f)
+            {
+                isGrounded = true;
+                return;
+            }
         }
     }
-
     private void OnCollisionExit2D(Collision2D other)
     {
         if(other.gameObject.CompareTag("Ground"))

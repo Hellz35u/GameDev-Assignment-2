@@ -1,5 +1,8 @@
-
-
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
@@ -91,14 +94,17 @@ public class CharacterController : MonoBehaviour
         characterAnimation.PlayAttack();
     }
 
+    private IEnumerator HoldAndDestroy(float waitingTime)
+    {
+        yield return new WaitForSeconds(waitingTime);
+        Destroy(gameObject);
+    }
+
     public void Die()
     {
         DisableController();
         characterAnimation.PlayDeath();
-
-
-        //for debug
-        Destroy(this.gameObject);
+        StartCoroutine(HoldAndDestroy(5f));
     }
 
     public void TakeHit()

@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 5935941306516759740}
   - component: {fileID: 7051896263393783871}
   - component: {fileID: 2179371047607085905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlimeEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -285,6 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AIController
   distanceToAttack: 2.5
   secondsBetweenAtacks: 4
+  reTargetLoop: 2
 --- !u!114 &423450522938942401
 MonoBehaviour:
   m_ObjectHideFlags: 0

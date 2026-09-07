@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 136538966792252515}
   - component: {fileID: 2167611412839653974}
   - component: {fileID: 6378240153893299559}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ally
   m_TagString: Ally
   m_Icon: {fileID: 0}
@@ -192,6 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AIController
   distanceToAttack: 1.2
   secondsBetweenAtacks: 1.5
+  reTargetLoop: 2
 --- !u!114 &6570242926510726854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,3 +391,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f01ad4627ff7ed438cbfaa5c983695c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterHitBox
+  damageGiven: 10

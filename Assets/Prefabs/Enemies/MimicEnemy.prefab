@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 8051911217682846899}
   - component: {fileID: 1580965649457710242}
   - component: {fileID: 3814084991613829110}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MimicEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -285,6 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AIController
   distanceToAttack: 1.2
   secondsBetweenAtacks: 2
+  reTargetLoop: 2
 --- !u!114 &8705757154874328969
 MonoBehaviour:
   m_ObjectHideFlags: 0

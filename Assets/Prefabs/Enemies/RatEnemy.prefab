@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 1981985937944126939}
   - component: {fileID: 2600947763659880844}
   - component: {fileID: 7143978273073272663}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RatEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -194,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AIController
   distanceToAttack: 1.2
   secondsBetweenAtacks: 1.5
+  reTargetLoop: 2
 --- !u!114 &6271629780051285352
 MonoBehaviour:
   m_ObjectHideFlags: 0

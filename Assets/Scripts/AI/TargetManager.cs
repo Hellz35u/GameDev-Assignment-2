@@ -41,6 +41,8 @@ public class TargetManager : MonoBehaviour
         {
             return;
         }
+        if (!registeredTargetsByTag.ContainsKey(target.tag))
+            return;
         registeredTargetsByTag[target.tag].Remove(target);
     }
     public static GameObject GetClosestTarget(List<string> tagsToLookFor, Vector3 originPosition)
