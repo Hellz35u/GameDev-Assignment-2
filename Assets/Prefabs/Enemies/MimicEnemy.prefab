@@ -799,9 +799,9 @@ MonoBehaviour:
   - {fileID: 5746878901329922910, guid: 6bcf33f1be27c6e4487f7ffbbad41860, type: 3}
   - {fileID: 741653624351939246, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
   throwOffset: {x: 0, y: 2}
-  yThrowForce: 4
-  xThrowMinForce: -1
-  xThrowMaxForce: 1
+  yThrowForce: 0.04
+  xThrowMinForce: 0
+  xThrowMaxForce: 0
 --- !u!114 &1331280596792724717
 MonoBehaviour:
   m_ObjectHideFlags: 0

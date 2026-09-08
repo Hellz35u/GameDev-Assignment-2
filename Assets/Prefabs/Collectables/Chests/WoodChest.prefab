@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff7195801f5bf8e439405c90f412c351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chest
-  secondsBetweenThrows: 2
+  secondsBetweenThrows: 0.5
 --- !u!114 &667958939766939929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,9 +163,9 @@ MonoBehaviour:
   - {fileID: 1909935934684963353, guid: 59f8f70abb2c70244ab95e3bb37ec22f, type: 3}
   - {fileID: 6125300174187378114, guid: d030331ca2b4416488111ffb48f4887b, type: 3}
   throwOffset: {x: 0, y: 2}
-  yThrowForce: 9
-  xThrowMinForce: -1
-  xThrowMaxForce: 1
+  yThrowForce: 0.08
+  xThrowMinForce: 0
+  xThrowMaxForce: 0
 --- !u!61 &7171568882186379524
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -250,7 +250,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 12c4347f34c87434eb13d4d61ff33fc3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -260,7 +260,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &-2582292950376942437
 BoxCollider2D:
   m_ObjectHideFlags: 0
