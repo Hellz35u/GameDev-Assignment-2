@@ -8,18 +8,18 @@ public class ScoreUI : MonoBehaviour
     private void Awake()
     {
         scoreText = GetComponent<TextMeshProUGUI>();
+        if(scoreText == null)
+        {
+            Debug.LogError("can't find TextMeshProUGUI in this GameObject!");
+        }
     }
     private void OnEnable()
     {
-        GameEvents.ScoreChanged += ScoreUpdater;
+        GameEvents.ScoreUpdated += ScoreUpdater;
     }
     private void OnDisable()
     {
-        GameEvents.ScoreChanged -= ScoreUpdater;
-    }
-    private void Start()
-    {
-        ScoreUpdater(0);
+        GameEvents.ScoreUpdated -= ScoreUpdater;
     }
     private void ScoreUpdater(int score)
     {
