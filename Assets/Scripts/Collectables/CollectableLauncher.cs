@@ -25,7 +25,12 @@ public class CollectableLauncher : MonoBehaviour
 
         return true;
     }
-
+    public bool PassNext()
+    {
+        if (IsEmpty()) return false;
+        collectablesList.RemoveAt(0);
+        return true;
+    }
     public void ThrowAll()
     {
         if (IsEmpty()) return;

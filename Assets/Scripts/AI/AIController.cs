@@ -11,6 +11,8 @@ public class AIController : MonoBehaviour
     private float attackCooldownRemaining = 0f;
     [SerializeField] private float secondsBetweenAtacks = 2.0f;
     [SerializeField] private float reTargetLoop = 2.0f;
+    [SerializeField] private int framSkipper = 10;
+    private int framCounter = 0;
     private float lastTakeTargetTime = 0;
     private EnemiesTags enemiesTags = null;
 
@@ -30,12 +32,14 @@ public class AIController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (characterController == null || enemiesTags == null) return;
-        lastTakeTargetTime += Time.fixedDeltaTime;
-        CoolDownAttack(Time.fixedDeltaTime);
+        lastTakeTargetTime += Time.deltaTime;
+        CoolDownAttack(Time.deltaTime);
 
+        framCounter = (framCounter + 1) % framSkipper;
+        if (framCounter != 0) return;
         Vector3 myPosition = transform.position;
         if (HasValidTarget())
         {

@@ -658,6 +658,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &679926446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6363487390091882034, guid: 7ee266124dddcc442b718c8793d6066c, type: 3}
+  m_PrefabInstance: {fileID: 797920682}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &679926447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679926446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7541ae1172258844bee809567ba5bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterCollectableThrower
+  eachThrowChances: 50
+--- !u!114 &679926448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679926446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5451ed6fe505942ab13bb751d1cadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectableLauncher
+  collectablesList:
+  - {fileID: 5746878901329922910, guid: 6bcf33f1be27c6e4487f7ffbbad41860, type: 3}
+  throwOffset: {x: 0, y: 2}
+  yThrowForce: 4
+  xThrowMinForce: -1
+  xThrowMaxForce: 1
 --- !u!1001 &797920682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -721,7 +757,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6363487390091882034, guid: 7ee266124dddcc442b718c8793d6066c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 679926448}
+    - targetCorrespondingSourceObject: {fileID: 6363487390091882034, guid: 7ee266124dddcc442b718c8793d6066c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 679926447}
   m_SourcePrefab: {fileID: 100100000, guid: 7ee266124dddcc442b718c8793d6066c, type: 3}
 --- !u!1 &822437260
 GameObject:
@@ -923,7 +965,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8077318292547504271, guid: a822dce64b76a4148aee6a8f4e60fcb3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1285711456}
+    - targetCorrespondingSourceObject: {fileID: 8077318292547504271, guid: a822dce64b76a4148aee6a8f4e60fcb3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1285711455}
   m_SourcePrefab: {fileID: 100100000, guid: a822dce64b76a4148aee6a8f4e60fcb3, type: 3}
 --- !u!1 &1147493859
 GameObject:
@@ -969,6 +1017,44 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1169914571 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4134593790902385005, guid: c6cbbdeb7e2aabd4d9644abfbb6a100e, type: 3}
+  m_PrefabInstance: {fileID: 1885362497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1169914586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169914571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7541ae1172258844bee809567ba5bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterCollectableThrower
+  eachThrowChances: 50
+--- !u!114 &1169914587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169914571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5451ed6fe505942ab13bb751d1cadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectableLauncher
+  collectablesList:
+  - {fileID: 6125300174187378114, guid: a94866921f6eac64d92f05b97dd37436, type: 3}
+  - {fileID: 5746878901329922910, guid: 6bcf33f1be27c6e4487f7ffbbad41860, type: 3}
+  - {fileID: 6125300174187378114, guid: a94866921f6eac64d92f05b97dd37436, type: 3}
+  throwOffset: {x: 0, y: 2}
+  yThrowForce: 4
+  xThrowMinForce: -1
+  xThrowMaxForce: -1
 --- !u!1001 &1219613483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1172,6 +1258,101 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1997743035}
   m_SourcePrefab: {fileID: 100100000, guid: 720c0e2d40761a54586c7f030be68328, type: 3}
+--- !u!1001 &1234947023
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 741653624351939246, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_Name
+      value: WoodChest
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400702778976713382, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.16638
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400702778976713382, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.7549987
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400702778976713382, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400702778976713382, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400702778976713382, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400702778976713382, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400702778976713382, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400702778976713382, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400702778976713382, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400702778976713382, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+--- !u!1 &1285711440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8077318292547504271, guid: a822dce64b76a4148aee6a8f4e60fcb3, type: 3}
+  m_PrefabInstance: {fileID: 952090636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1285711455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285711440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7541ae1172258844bee809567ba5bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterCollectableThrower
+  eachThrowChances: 50
+--- !u!114 &1285711456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285711440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5451ed6fe505942ab13bb751d1cadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectableLauncher
+  collectablesList:
+  - {fileID: 6125300174187378114, guid: a94866921f6eac64d92f05b97dd37436, type: 3}
+  - {fileID: 5746878901329922910, guid: 6bcf33f1be27c6e4487f7ffbbad41860, type: 3}
+  - {fileID: 741653624351939246, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+  throwOffset: {x: 0, y: 2}
+  yThrowForce: 4
+  xThrowMinForce: -1
+  xThrowMaxForce: 1
 --- !u!1001 &1885362497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1235,7 +1416,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4134593790902385005, guid: c6cbbdeb7e2aabd4d9644abfbb6a100e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1169914587}
+    - targetCorrespondingSourceObject: {fileID: 4134593790902385005, guid: c6cbbdeb7e2aabd4d9644abfbb6a100e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1169914586}
   m_SourcePrefab: {fileID: 100100000, guid: c6cbbdeb7e2aabd4d9644abfbb6a100e, type: 3}
 --- !u!1 &1997743033 stripped
 GameObject:
@@ -1274,3 +1461,4 @@ SceneRoots:
   - {fileID: 1885362497}
   - {fileID: 1219613483}
   - {fileID: 138571751}
+  - {fileID: 1234947023}
