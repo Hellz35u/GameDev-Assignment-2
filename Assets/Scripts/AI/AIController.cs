@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
-    private CharacterController characterActions;
+    private CharacterController characterController;
     private GameObject targetGameObject = null;
     [SerializeField] private float distanceToAttack = 5f;
     private float attackCooldownRemaining = 0f;
@@ -18,19 +18,10 @@ public class AIController : MonoBehaviour
 
     void Start()
     {
-        GameEvents.CharacterDeath += (GameObject go) => 
-        { 
-            if (go == this.gameObject && this.tag == "Enemy")
-            {
-                //adding score on killing enemy
-                GameEvents.OnScoreChanged(100);
-            }
-        };
-
-        characterActions = GetComponent<CharacterController>();
-        if (characterActions == null)
+        characterController = GetComponent<CharacterController>();
+        if (characterController == null)
         {
-            Debug.LogError("can't find CharacterActions script in this GameObject!");
+            Debug.LogError("can't find characterController script in this GameObject!");
         }
         enemiesTags = GetComponent<EnemiesTags>();
         if (enemiesTags == null)
@@ -39,12 +30,10 @@ public class AIController : MonoBehaviour
         }
     }
 
-
-
     void FixedUpdate()
     {
-        if (characterActions == null) return;
-        lastTakeTargetTime += Time.deltaTime;
+        if (characterController == null || enemiesTags == null) return;
+        lastTakeTargetTime += Time.fixedDeltaTime;
         CoolDownAttack(Time.fixedDeltaTime);
 
         Vector3 myPosition = transform.position;
@@ -61,12 +50,12 @@ public class AIController : MonoBehaviour
             }
             else
             {
-                characterActions.Move(new Vector2(directionOfTarget, 0f));
+                characterController.Move(new Vector2(directionOfTarget, 0f));
             }
         }
         else
         {
-            characterActions.Move(Vector2.zero);//stop
+            characterController.Move(Vector2.zero);//stop
             FindNewClosestTarget();
         }
     }
@@ -74,12 +63,12 @@ public class AIController : MonoBehaviour
 
     private void TryAttackTarget(float facingDirection)
     {
-        characterActions.Move(Vector2.zero);//stop before attack
-        characterActions.SetFacing(facingDirection);
+        characterController.Move(Vector2.zero);//stop before attack
+        characterController.SetFacing(facingDirection);
         if (attackCooldownRemaining <= 0f)
         {
             attackCooldownRemaining = secondsBetweenAtacks;
-            characterActions.Attack();
+            characterController.Attack();
         }
     }
 
