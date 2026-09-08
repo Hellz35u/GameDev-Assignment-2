@@ -37,9 +37,7 @@ public class CharacterEventHandler : MonoBehaviour
 
         if (victim != this.gameObject) return;
 
-        controller.Die();
-
-        Destroy(this.gameObject);
+        controller.Die();//after the last frame of die animation the object will be destroy
     }
 
     private void OnTakeHit(GameObject victim, GameObject attacker, int damage)

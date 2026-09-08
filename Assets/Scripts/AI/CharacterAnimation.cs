@@ -45,6 +45,11 @@ public class CharacterAnimation : MonoBehaviour
     {
         DisableHitBox();
     }
+
+    private void OnLastFrameOfDeathAnimation()
+    {
+        Destroy(this.gameObject);
+    }
     private void EnableHitBox()
     {
         if (triggerHitBox == null) return;
