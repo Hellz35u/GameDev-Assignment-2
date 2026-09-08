@@ -450,6 +450,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharecterAnimation
   maxAttackIndex: 1
+  deathParticlesPrefab: {fileID: 4180235467474531761, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+  deathColor: {r: 0.19607845, g: 0.20784315, b: 0.227451, a: 1}
 --- !u!114 &5156303071381854081
 MonoBehaviour:
   m_ObjectHideFlags: 0

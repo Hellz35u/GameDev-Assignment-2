@@ -7,6 +7,8 @@ public class CharacterAnimation : MonoBehaviour
     private CharacterHitBox characterHitBox = null;
     private Collider2D triggerHitBox = null;
     [SerializeField] private int maxAttackIndex = 3;
+    [SerializeField] private ParticleSystem deathParticlesPrefab;
+    [SerializeField] private Color deathColor;
     private int attackIndex = 0;
     private void Awake()
     {
@@ -48,6 +50,12 @@ public class CharacterAnimation : MonoBehaviour
 
     private void OnLastFrameOfDeathAnimation()
     {
+        if(deathParticlesPrefab != null)
+        {
+            ParticleSystem particles = Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
+            var mainModule = particles.main;
+            mainModule.startColor = deathColor;
+        }
         Destroy(this.gameObject);
     }
     private void EnableHitBox()

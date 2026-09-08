@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 242214394}
   - component: {fileID: 242214393}
   - component: {fileID: 242214392}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1259,6 +1259,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a54fe24b6776242883928a07bdf703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeatlhBarUI
+--- !u!1001 &4253020011634186886
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3271869418647847194, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.0274525
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271869418647847194, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.2323825
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271869418647847194, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271869418647847194, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271869418647847194, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271869418647847194, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271869418647847194, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271869418647847194, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271869418647847194, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3271869418647847194, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8520733453749706572, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
+      propertyPath: m_Name
+      value: Particle System
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ad53ef2ed0d56284b855d5eb8cd46e98, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1274,3 +1331,4 @@ SceneRoots:
   - {fileID: 1885362497}
   - {fileID: 1219613483}
   - {fileID: 138571751}
+  - {fileID: 4253020011634186886}
