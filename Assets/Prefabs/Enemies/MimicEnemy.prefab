@@ -814,4 +814,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7541ae1172258844bee809567ba5bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCollectableThrower
-  eachThrowChances: 50
+  eachThrowChances: 40
