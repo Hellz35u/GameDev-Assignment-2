@@ -1,5 +1,8 @@
-
-
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
@@ -68,6 +71,12 @@ public class CharacterController : MonoBehaviour
     {
         if (Time.timeScale == 0f || !enableControll) return;
         characterAnimation.PlayAttack();
+    }
+
+    private IEnumerator HoldAndDestroy(float waitingTime)
+    {
+        yield return new WaitForSeconds(waitingTime);
+        Destroy(gameObject);
     }
 
     public void Die()

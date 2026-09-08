@@ -40,8 +40,9 @@ public class Timer : MonoBehaviour
         {
             timeRemaining = 0f;
             isRunning = false;
-            onTimerEnd?.Invoke();
+            Action callback = onTimerEnd;
             onTimerEnd = null;
+            callback?.Invoke();
             UpdateTimerText();
             Debug.Log("Timer finished");
             return;

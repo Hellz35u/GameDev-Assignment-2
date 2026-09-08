@@ -19,6 +19,16 @@ public class WaveManager : MonoBehaviour
     private bool finishedSpawning;
     private Coroutine currentWaveCoroutine;
 
+    private void OnEnable()
+    {
+        GameEvents.CharacterDeath += CharacterDeathListiner;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.CharacterDeath -= CharacterDeathListiner;
+    }
+
     private void Start()
     {
         if (spawnPositions == null)
@@ -96,18 +106,22 @@ public class WaveManager : MonoBehaviour
         StartWave();
 
         if (waveEnded)
+        {
+            Debug.LogError("test 1");
             yield break;
+        }
 
         int enemiesToSpawnCount = enemiesNeedToSpwan.Count;
 
         for (int i = 0; i < enemiesToSpawnCount; i++)
         {
             if (waveEnded)
+            {
+                Debug.LogError("test 2");
                 yield break;
+            }
 
             Vector3 randomPosition = spawnPositions.GetRandomPosition();
-
-            Debug.Log("Spawning enemy at: " + randomPosition);
 
             SpawnEnemy(randomPosition);
 

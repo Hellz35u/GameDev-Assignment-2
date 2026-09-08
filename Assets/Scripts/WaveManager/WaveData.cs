@@ -20,7 +20,7 @@ public class WaveData : MonoBehaviour
     }
     public List<GameObject> GetEnemiesList()
     {
-        return enemies;
+        return new (enemies);
     }
     public string GetWaveName()
     {
