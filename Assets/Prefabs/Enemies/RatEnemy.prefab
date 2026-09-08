@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 7143978273073272663}
   - component: {fileID: 1591385430520614264}
   - component: {fileID: 2348770481713994996}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RatEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -699,7 +699,7 @@ GameObject:
   - component: {fileID: 7641508052595561602}
   - component: {fileID: 1992322444055477911}
   - component: {fileID: 705074304449749543}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -155,7 +155,7 @@ public class WaveManager : MonoBehaviour
         int secondsDelay = timeBetweenWaves;
         while (secondsDelay > 0)
         {
-            waveTextAnimator.DisplayWaveText($"Next Wave in {secondsDelay}");
+            waveTextAnimator.DisplayWaveText($"{secondsDelay}");
             secondsDelay--;
             yield return new WaitForSeconds(1f);//wait for one secod
         }

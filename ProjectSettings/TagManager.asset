@@ -18,8 +18,8 @@ TagManager:
   - Enemy
   - Ally
   - Collectable
-  - 
-  - 
+  - Player
+  - HitBox
   - 
   - 
   - 
