@@ -1,194 +1,204 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField] private List<WaveData> waves;
+    [Header("References")]
+    [SerializeField] private List<WaveData> waves = new List<WaveData>();
     [SerializeField] private WaveTextAnimator waveTextAnimator;
     [SerializeField] private Timer timer;
-    [SerializeField] private PositionToSpawnEnemie spawnPositions;
+    [SerializeField] private string afterLastWaveScene;
 
-    private HashSet<GameObject> currentEnemiesInScene = new HashSet<GameObject>();
-    private List<GameObject> enemiesNeedToSpwan = new List<GameObject>();
-    
+    [Header("Wave Timing")]
+    [SerializeField] private int timeBetweenWaves = 3;
+
+    private readonly HashSet<GameObject> currentEnemiesInScene = new HashSet<GameObject>();
+    private readonly List<GameObject> enemiesToSpawn = new List<GameObject>();
+    private List<Vector3> spawnPositions = new();
+
     private bool waveEnded;
     private bool finishedSpawning;
     private Coroutine currentWaveCoroutine;
 
     private void OnEnable()
     {
-        GameEvents.CharacterDeath += CharacterDeathListiner;
+        GameEvents.CharacterDeath += OnCharacterDeath;
     }
 
     private void OnDisable()
     {
-        GameEvents.CharacterDeath -= CharacterDeathListiner;
+        GameEvents.CharacterDeath -= OnCharacterDeath;
     }
 
     private void Start()
     {
-        if (spawnPositions == null)
+        PositionToSpawnEnemie[] positionsInScene = FindObjectsByType<PositionToSpawnEnemie>(FindObjectsSortMode.None);
+        if (positionsInScene != null)
         {
-            Debug.LogError("WaveManager: Spawn position is not assigned!");
-            return;
+            foreach (PositionToSpawnEnemie position in positionsInScene)
+            {
+                if (position == null) continue;
+                spawnPositions.Add(position.GetPosition());
+            }
         }
-        if (waves == null || waves.Count == 0)
+
+        if (!AreDependenciesValid()) return;
+
+        ProcessAndStartNextWave();
+    }
+
+    private bool AreDependenciesValid()
+    {
+        if (spawnPositions == null || spawnPositions.Count == 0)
         {
-            Debug.LogError("WaveManager: No waves configured!");
-            return;
+            Debug.LogError("Spawn position is not assigned!"); return false;
         }
         if (timer == null)
         {
-            Debug.LogError("WaveManager: Timer is not assigned!");
-            return;
+            Debug.LogError("Timer is not assigned!"); return false;
         }
         if (waveTextAnimator == null)
         {
-            Debug.LogError("WaveManager: WaveTextAnimator is not assigned!");
-            return;
+            Debug.LogError("WaveTextAnimator is not assigned!"); return false;
         }
-        if (waves.First() == null)
+        if (waves == null || waves.Count == 0 || waves[0] == null)
         {
-            Debug.LogError("WaveManager: First wave is null!");
-            return;
+            Debug.LogError("Waves list is empty or first wave is null!");
+            return false;
         }
-
-        currentWaveCoroutine = StartCoroutine(RunWave(waves.First().GetSpawnDuration()));
+        return true;
     }
 
-    private void SpawnEnemy(Vector3 SpawnPosition)
-    {
-        if (enemiesNeedToSpwan == null || enemiesNeedToSpwan.Count == 0)
-        {
-            Debug.LogWarning("WaveManager: No enemies left to spawn.");
-            return;
-        }
-
-        GameObject prefab = enemiesNeedToSpwan.First<GameObject>();
-
-        if (prefab == null)
-        {
-            Debug.LogWarning("WaveManager: Enemy prefab is null.");
-            enemiesNeedToSpwan.RemoveAt(0);
-            return;
-        }
-
-        GameObject spawnedEnemy = Instantiate(prefab, SpawnPosition, Quaternion.identity);
-
-        if (spawnedEnemy == null)
-        {
-            Debug.LogError("WaveManager: Failed to instantiate enemy.");
-            return;
-        }
-
-        enemiesNeedToSpwan.Remove(prefab);
-        currentEnemiesInScene.Add(spawnedEnemy);
-    }
-
-    private IEnumerator RunWave(float spawnDuration)
-    {
-        if (spawnDuration < 0)
-        {
-            Debug.LogError("WaveManager: Spawn duration cannot be negative.");
-            yield break;
-        }
-
-        if (spawnPositions == null)
-        {
-            Debug.LogError("WaveManager: Spawn position is missing.");
-            yield break;
-        }
-
-        StartWave();
-
-        if (waveEnded)
-        {
-            Debug.LogError("test 1");
-            yield break;
-        }
-
-        int enemiesToSpawnCount = enemiesNeedToSpwan.Count;
-
-        for (int i = 0; i < enemiesToSpawnCount; i++)
-        {
-            if (waveEnded)
-            {
-                Debug.LogError("test 2");
-                yield break;
-            }
-
-            Vector3 randomPosition = spawnPositions.GetRandomPosition();
-
-            SpawnEnemy(randomPosition);
-
-            yield return new WaitForSeconds(spawnDuration);
-        }
-
-        finishedSpawning = true;
-
-        CheckIfAllEnemiesKilled();
-    }
-
-    private void StartWave()
+    private void ProcessAndStartNextWave()
     {
         if (waves == null || waves.Count == 0)
         {
-            Debug.LogWarning("WaveManager: Cannot start wave because waves list is empty.");
+            Debug.Log("All waves are finished!");
+            SceneManager.LoadScene(afterLastWaveScene);
+            return;
+        }
+
+        WaveData currentWave = waves[0];
+
+        if (currentWave == null || currentWave.GetEnemiesList() == null)
+        {
+            Debug.LogError("Current wave or its enemy list is null.");
             return;
         }
 
         waveEnded = false;
         finishedSpawning = false;
 
-        WaveData wave = waves.First<WaveData>();
+        enemiesToSpawn.Clear();
+        enemiesToSpawn.AddRange(currentWave.GetEnemiesList());
 
-        if (wave == null)
-        {
-            Debug.LogError("WaveManager: Current wave is null.");
-            waveEnded = true;
-            return;
-        }
+        waveTextAnimator.DisplayWaveText(currentWave.GetWaveName());
+        timer.StartTimer(currentWave.GetWaveDuration(), HandleWaveTimeout);
 
-        if (wave.GetEnemiesList() == null)
-        {
-            Debug.LogError("WaveManager: Enemy list in current wave is null.");
-            waveEnded = true;
-            return;
-        }
-
-        if (wave.GetWaveDuration() < 0)
-        {
-            Debug.LogError("WaveManager: Wave duration cannot be negative.");
-            waveEnded = true;
-            return;
-        }
-
-        enemiesNeedToSpwan.Clear();
-        enemiesNeedToSpwan.AddRange(wave.GetEnemiesList());
-        waveTextAnimator.DisplayWaveText(wave.GetWaveName());
-        timer.StartTimer(wave.GetWaveDuration(), EndWaveByTime);
-
-
+        currentWaveCoroutine = StartCoroutine(SpawnEnemiesRoutine(currentWave));
     }
 
-    private void EndWaveByTime()
+    private IEnumerator SpawnEnemiesRoutine(WaveData currentWave)
     {
-        if (waveEnded)
-            return;
+        float spawnDuration = currentWave.GetSpawnDuration();
+        int maxEnemies = currentWave.GetMaxEnemiesInScene();
 
-        if (timer == null)
+        if (spawnDuration < 0)
         {
-            Debug.LogError("WaveManager: Timer reference is missing.");
+            Debug.LogError("Spawn duration cannot be negative.");
+            yield break;
+        }
+
+        if (maxEnemies <= 0)
+        {
+            Debug.LogError("Max enemies in scene must be at least 1. Aborting wave spawn.");
+            yield break;
+        }
+
+        if (spawnPositions == null)
+        {
+            Debug.LogError("spawnPositions can't be null.");
+            yield break;
+        }
+
+        while (enemiesToSpawn.Count > 0)
+        {
+            if (waveEnded) yield break;
+
+            while (currentEnemiesInScene.Count >= maxEnemies)
+            {
+                if (waveEnded) yield break;
+                yield return null;
+            }
+
+            int randomIndex = Random.Range(0, spawnPositions.Count);
+            Vector3 spawnPos = spawnPositions[randomIndex];
+            SpawnNextEnemyFromQueue(spawnPos);
+
+            yield return new WaitForSeconds(spawnDuration);
+        }
+
+        finishedSpawning = true;
+        CheckWaveCompletion();
+    }
+
+    private IEnumerator StartNextWaveAfterDelay()
+    {
+        if (waves.Count == 0)
+        {
+            // Last wave already finished , skip the delay and load afterLastWaveScene
+            ProcessAndStartNextWave();
+            yield break;
+        }
+        int secondsDelay = timeBetweenWaves;
+        while (secondsDelay > 0)
+        {
+            waveTextAnimator.DisplayWaveText($"Next Wave in {secondsDelay}");
+            secondsDelay--;
+            yield return new WaitForSeconds(1f);//wait for one secod
+        }
+
+        ProcessAndStartNextWave();
+    }
+
+    private void SpawnNextEnemyFromQueue(Vector3 spawnPosition)
+    {
+        if (enemiesToSpawn.Count == 0) return;
+
+        GameObject prefab = enemiesToSpawn[0];
+        enemiesToSpawn.RemoveAt(0);
+
+        if (prefab == null)
+        {
+            Debug.LogWarning("Enemy prefab is null.");
             return;
         }
 
+        GameObject spawnedEnemy = Instantiate(prefab, spawnPosition, Quaternion.identity);
+        if (spawnedEnemy != null)
+        {
+            currentEnemiesInScene.Add(spawnedEnemy);
+        }
+    }
+
+    private void HandleWaveTimeout()
+    {
+        ConcludeActiveWave(destroyRemainingEnemies: true);
+    }
+
+    private void HandleAllEnemiesEliminated()
+    {
+        ConcludeActiveWave(destroyRemainingEnemies: false);
+    }
+
+    private void ConcludeActiveWave(bool destroyRemainingEnemies)
+    {
+        if (waveEnded) return;
         waveEnded = true;
 
-        timer.StopTimer();
+        timer?.StopTimer();
 
         if (currentWaveCoroutine != null)
         {
@@ -196,109 +206,42 @@ public class WaveManager : MonoBehaviour
             currentWaveCoroutine = null;
         }
 
-        foreach (GameObject enemy in currentEnemiesInScene)
+        if (destroyRemainingEnemies)
         {
-            if (enemy != null)
+            foreach (var enemy in currentEnemiesInScene)
             {
-                Destroy(enemy);
+                if (enemy != null)
+                {
+                    Destroy(enemy);
+                }
             }
         }
 
         currentEnemiesInScene.Clear();
 
-        if (waves != null && waves.Count > 0)
+        if (waves.Count > 0)
         {
             waves.RemoveAt(0);
         }
 
-        if (waves != null && waves.Count > 0)
-        {
-            if (waves.First() == null)
-            {
-                Debug.LogError("WaveManager: Next wave is null.");
-                return;
-            }
-
-            currentWaveCoroutine = StartCoroutine(RunWave(waves.First().GetSpawnDuration()));
-        }
-        else
-        {
-            Debug.Log("All waves are finished");
-        }
-
+        StartCoroutine(StartNextWaveAfterDelay());
     }
 
-    private void EndWaveByEnemiesKilled()
+    private void OnCharacterDeath(GameObject victim, GameObject killer)
     {
-        if (waveEnded)
-            return;
+        if (victim == null) return;
 
-        if (timer == null)
+        if (currentEnemiesInScene.Remove(victim))
         {
-            Debug.LogError("WaveManager: Timer reference is missing.");
-            return;
-        }
-
-        waveEnded = true;
-
-        timer.StopTimer();
-        currentEnemiesInScene.Clear();
-
-        if (waves != null && waves.Count > 0)
-        {
-            waves.RemoveAt(0);
-        }
-
-        if (waves != null && waves.Count > 0)
-        {
-            if (waves.First() == null)
-            {
-                Debug.LogError("WaveManager: Next wave is null.");
-                return;
-            }
-
-            currentWaveCoroutine = StartCoroutine(RunWave(waves.First().GetSpawnDuration()));
-        }
-        else
-        {
-            Debug.Log("All waves are finished");
+            CheckWaveCompletion();
         }
     }
 
-    public void CharacterDeathListiner(GameObject victim,GameObject killer)
+    private void CheckWaveCompletion()
     {
-        if (victim == null)
-        {
-            Debug.LogWarning("WaveManager: CharacterDeathListiner received null.");
-            return;
-        }
-
-        if (currentEnemiesInScene == null)
-        {
-            Debug.LogError("WaveManager: currentEnemiesInScene is null.");
-            return;
-        }
-
-        if (currentEnemiesInScene.Contains(victim))
-        {
-            currentEnemiesInScene.Remove(victim);
-        }
-
-        CheckIfAllEnemiesKilled();
-    }
-
-    private void CheckIfAllEnemiesKilled()
-    {
-        if (currentEnemiesInScene == null)
-        {
-            Debug.LogError("WaveManager: currentEnemiesInScene is null.");
-            return;
-        }
-
         if (finishedSpawning && currentEnemiesInScene.Count == 0)
         {
-            EndWaveByEnemiesKilled();
+            HandleAllEnemiesEliminated();
         }
     }
-
 }
