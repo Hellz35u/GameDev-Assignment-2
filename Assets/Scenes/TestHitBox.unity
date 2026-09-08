@@ -1245,6 +1245,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2582292950376942437, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 12c4347f34c87434eb13d4d61ff33fc3, type: 2}
     - target: {fileID: 741653624351939246, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
       propertyPath: m_Name
       value: WoodChest
