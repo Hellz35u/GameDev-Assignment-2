@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3542953768332516276}
   - component: {fileID: 1255058570496747783}
   - component: {fileID: 2579225137038101166}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gold_Gem
   m_TagString: Collectables
   m_Icon: {fileID: 0}

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6880692093411223827}
   - component: {fileID: 6967414195167291230}
   - component: {fileID: 2285196661463224661}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Purple_Gem
   m_TagString: Collectables
   m_Icon: {fileID: 0}

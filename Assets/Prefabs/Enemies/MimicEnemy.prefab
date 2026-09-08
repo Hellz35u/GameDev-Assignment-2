@@ -455,6 +455,8 @@ GameObject:
   - component: {fileID: 3814084991613829110}
   - component: {fileID: 6631590482898007683}
   - component: {fileID: 4861385928525123879}
+  - component: {fileID: 3207891316076929735}
+  - component: {fileID: 1331280596792724717}
   m_Layer: 6
   m_Name: MimicEnemy
   m_TagString: Enemy
@@ -630,6 +632,7 @@ MonoBehaviour:
   distanceToAttack: 1.2
   secondsBetweenAtacks: 2
   reTargetLoop: 2
+  framSkipper: 10
 --- !u!114 &8705757154874328969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -779,3 +782,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAttachedHealthUI
   healthBar: {fileID: 9108913433305548036}
   healthPointsText: {fileID: 0}
+--- !u!114 &3207891316076929735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8077318292547504271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5451ed6fe505942ab13bb751d1cadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectableLauncher
+  collectablesList:
+  - {fileID: 6125300174187378114, guid: a94866921f6eac64d92f05b97dd37436, type: 3}
+  - {fileID: 5746878901329922910, guid: 6bcf33f1be27c6e4487f7ffbbad41860, type: 3}
+  - {fileID: 741653624351939246, guid: 66c3c8be80715e342b87139738ae544d, type: 3}
+  throwOffset: {x: 0, y: 2}
+  yThrowForce: 4
+  xThrowMinForce: -1
+  xThrowMaxForce: 1
+--- !u!114 &1331280596792724717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8077318292547504271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7541ae1172258844bee809567ba5bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterCollectableThrower
+  eachThrowChances: 50

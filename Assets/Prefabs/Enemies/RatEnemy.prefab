@@ -261,6 +261,8 @@ GameObject:
   - component: {fileID: 7143978273073272663}
   - component: {fileID: 1591385430520614264}
   - component: {fileID: 2348770481713994996}
+  - component: {fileID: 5458869830975893410}
+  - component: {fileID: 8642031723617216903}
   m_Layer: 6
   m_Name: RatEnemy
   m_TagString: Enemy
@@ -437,6 +439,7 @@ MonoBehaviour:
   distanceToAttack: 1.2
   secondsBetweenAtacks: 1.5
   reTargetLoop: 2
+  framSkipper: 10
 --- !u!114 &6271629780051285352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,6 +589,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAttachedHealthUI
   healthBar: {fileID: 1595320755858303198}
   healthPointsText: {fileID: 0}
+--- !u!114 &5458869830975893410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6363487390091882034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5451ed6fe505942ab13bb751d1cadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectableLauncher
+  collectablesList:
+  - {fileID: 5746878901329922910, guid: 6bcf33f1be27c6e4487f7ffbbad41860, type: 3}
+  throwOffset: {x: 0, y: 2}
+  yThrowForce: 4
+  xThrowMinForce: -1
+  xThrowMaxForce: 1
+--- !u!114 &8642031723617216903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6363487390091882034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7541ae1172258844bee809567ba5bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterCollectableThrower
+  eachThrowChances: 50
 --- !u!1 &7408747529766810990
 GameObject:
   m_ObjectHideFlags: 0

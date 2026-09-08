@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a84f6c14fe4a1ad468e5ad698bbefae2
+guid: 9121ffec9e7d23b4ba629b112782d111
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0
@@ -11,5 +11,5 @@ AssetOrigin:
   productId: 181303
   packageName: TinyHealthSystem v1.0
   packageVersion: 1.0
-  assetPath: Assets/AssetsStore/HealthBar/ZombiSoft/TinyHealthSystem/Bars/ManaBar.anim
+  assetPath: Assets/AssetsStore/HealthBar/ZombiSoft/TinyHealthSystem/Bars/ManaBar.controller
   uploadId: 397016

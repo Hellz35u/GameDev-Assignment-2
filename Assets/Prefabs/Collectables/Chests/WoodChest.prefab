@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 1795104504832038716}
   - component: {fileID: 9016070056355519342}
   - component: {fileID: -2582292950376942437}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WoodChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 50
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1

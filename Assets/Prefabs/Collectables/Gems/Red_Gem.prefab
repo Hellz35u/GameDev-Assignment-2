@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6069309032326521741}
   - component: {fileID: 4889170607286679284}
   - component: {fileID: 7855305704542783693}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Red_Gem
   m_TagString: Collectables
   m_Icon: {fileID: 0}
