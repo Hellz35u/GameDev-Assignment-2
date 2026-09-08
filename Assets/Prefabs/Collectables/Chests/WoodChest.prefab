@@ -163,7 +163,7 @@ MonoBehaviour:
   - {fileID: 1909935934684963353, guid: 59f8f70abb2c70244ab95e3bb37ec22f, type: 3}
   - {fileID: 6125300174187378114, guid: d030331ca2b4416488111ffb48f4887b, type: 3}
   throwOffset: {x: 0, y: 2}
-  yThrowForce: 0.08
+  yThrowForce: 0.06
   xThrowMinForce: 0
   xThrowMaxForce: 0
 --- !u!61 &7171568882186379524
@@ -176,7 +176,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 12c4347f34c87434eb13d4d61ff33fc3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
