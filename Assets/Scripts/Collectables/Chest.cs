@@ -74,6 +74,8 @@ public class Chest : MonoBehaviour
             collectableChest.ThrowNext();
             yield return new WaitForSeconds(secondsBetweenThrows);
         }
+        chestAnimator.SetBool("IsOpened", false);
+        yield return new WaitUntil(() => chestAnimator.GetCurrentAnimatorStateInfo(0).IsName("Closed"));
         Destroy(this.gameObject);
     }
 }
