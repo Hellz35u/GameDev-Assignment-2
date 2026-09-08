@@ -51,14 +51,12 @@ public class Chest : MonoBehaviour
         if (chestAnimator == null) return false;
         if (collectableChest.IsEmpty()) return false;
         if (throwCoroutine != null) return false;
-
         return true;
     }
 
     private void StopThrowing()
     {
         if (throwCoroutine == null) return;
-
         StopCoroutine(throwCoroutine);
         throwCoroutine = null;
     }
@@ -77,6 +75,7 @@ public class Chest : MonoBehaviour
             yield return new WaitForSeconds(secondsBetweenThrows);
         }
         chestAnimator.SetBool("IsOpened", false);
-        throwCoroutine = null;
+        yield return new WaitUntil(() => chestAnimator.GetCurrentAnimatorStateInfo(0).IsName("Closed"));
+        Destroy(this.gameObject);
     }
 }
