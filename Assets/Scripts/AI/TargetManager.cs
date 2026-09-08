@@ -13,12 +13,9 @@ public class TargetManager : MonoBehaviour
         GameEvents.CharacterDeath += OnCharacterDeath;
     }
 
-    private void OnCharacterDeath(GameObject deathGameObject)
+    public void OnCharacterDeath(GameObject victim, GameObject killer)
     {
-        if (registeredTargetsByTag.ContainsKey(deathGameObject.tag))
-        {
-            registeredTargetsByTag[deathGameObject.tag].Remove(deathGameObject);
-        }
+        UnregisterTarget(victim);
     }
 
     private void OnDestroy()
