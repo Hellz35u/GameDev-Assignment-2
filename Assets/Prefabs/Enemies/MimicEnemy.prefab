@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 8051911217682846899}
   - component: {fileID: 1580965649457710242}
   - component: {fileID: 3814084991613829110}
+  - component: {fileID: 6631590482898007683}
   m_Layer: 0
   m_Name: MimicEnemy
   m_TagString: Enemy
@@ -285,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AIController
   distanceToAttack: 1.2
   secondsBetweenAtacks: 2
+  reTargetLoop: 2
 --- !u!114 &8705757154874328969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,3 +408,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterHealth
   fullHealth: 60
   currentHealth: 0
+--- !u!114 &6631590482898007683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8077318292547504271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80736bf99d865f144a2d2dbc79dce9bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterEventHandler
