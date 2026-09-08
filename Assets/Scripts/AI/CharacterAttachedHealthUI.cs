@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class CharacterAttachedHealthUI : MonoBehaviour
@@ -17,12 +18,16 @@ public class CharacterAttachedHealthUI : MonoBehaviour
             Debug.LogError("can't find CharacterHealth on this GameObject!");
         }
     }
-
-    private void OnEnable()
+    private void Start()
     {
         if (characterHealth == null) return;
+        OnHealthChange(this.gameObject, characterHealth.GetHealth(), characterHealth.GetFullHealth());
+    }
+    private void OnEnable()
+    {
+        
         GameEvents.CharacterHealthChange += OnHealthChange;
-        UpdateHealthBar(characterHealth.GetHealth(), characterHealth.GetFullHealth());
+        
     }
 
     private void OnDisable()
