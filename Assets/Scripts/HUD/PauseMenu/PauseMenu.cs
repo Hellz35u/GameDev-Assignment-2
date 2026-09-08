@@ -26,7 +26,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        playerGameObject = FindAnyObjectByType<NewPlayerController>()?.gameObject;
+        playerGameObject = FindAnyObjectByType<PlayerController>()?.gameObject;
         InputEvents.Pause += PausePressed;
         pauseMenuBackGroundImage = GetComponentInChildren<Image>(true);
         if(pauseMenuBackGroundImage == null)

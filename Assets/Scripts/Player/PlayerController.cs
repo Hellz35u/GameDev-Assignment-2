@@ -1,56 +1,30 @@
-using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    PlayerAnimator playerAnimator;
-    CharacterMovement characterMovement;
-    void Start()
+    private CharacterController characterController;
+    void Awake()
     {
-        characterMovement = GetComponent<CharacterMovement>();
-        playerAnimator = GetComponent<PlayerAnimator>();
-
-        InputEvents.Move += OnMove;
-        InputEvents.Jump += OnJump;
-        InputEvents.Attack += OnAttack;
-        PlayerEvents.Death += OnDeath;
-        PlayerEvents.TakeHit += OnTakeHit;
-    }
-    private void Update()
-    {
-        playerAnimator.SetVerticalVelocity(characterMovement.GetVerticalVelocity());
-    }
-    private void OnJump()
-    {
-        if(characterMovement.HandleJump())
+        characterController = GetComponent<CharacterController>();
+        if (characterController == null)
         {
-            playerAnimator.PlayJump();
+            Debug.LogError("can't find CharacterController script in this GameObject!");
         }
     }
 
-    private void OnMove(Vector2 dir)
+    private void OnEnable()
     {
-        characterMovement.HandleMovement(dir.x);
-        playerAnimator.SetMovement(dir);
+        if (characterController == null) return;
+        InputEvents.Move += characterController.Move;
+        InputEvents.Jump += characterController.TryJump;
+        InputEvents.Attack += characterController.Attack;
     }
 
-    private void OnAttack()
+    private void OnDisable()
     {
-        playerAnimator.PlayAttack();
-    }
-    private void OnDeath()
-    {
-        playerAnimator.PlayDeath();
-    }
-    private void OnTakeHit()
-    {
-        playerAnimator.PlayHit();
-    }
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if(other.gameObject.CompareTag("Enemy"))
-        {
-            //here we call the event on hit
-        }
+        if (characterController == null) return;
+        InputEvents.Move -= characterController.Move;
+        InputEvents.Jump -= characterController.TryJump;
+        InputEvents.Attack -= characterController.Attack;
     }
 }
