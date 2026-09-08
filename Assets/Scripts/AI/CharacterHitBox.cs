@@ -4,8 +4,9 @@ using UnityEngine;
 public class CharacterHitBox : MonoBehaviour
 {
     [SerializeField]private int damageGiven = 10;
-    private HashSet<GameObject> charactersHitThisAttack = new();
+    private HashSet<GameObject> haveBeenHit = new();
     private HashSet<string> enemiesCharactersTags = new();
+    private GameObject ownerGameObject;
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class CharacterHitBox : MonoBehaviour
         else
         {
             enemiesCharactersTags = new HashSet<string>(enemiesTags.GetList());
+            ownerGameObject = enemiesTags.gameObject;
         }
     }
 
@@ -31,18 +33,19 @@ public class CharacterHitBox : MonoBehaviour
         HitGameObject(other.gameObject);
     }
 
-    private void HitGameObject(GameObject go)
+    private void HitGameObject(GameObject victimGameObject)
     {
-        if (charactersHitThisAttack.Contains(go)) return;
-        if (enemiesCharactersTags.Contains(go.tag))
+        if (ownerGameObject == null || haveBeenHit.Contains(victimGameObject))return;
+        
+        if (enemiesCharactersTags.Contains(victimGameObject.tag))
         {
-            charactersHitThisAttack.Add(go);
-            GameEvents.OnCharacterTakeHit(go , damageGiven);
+            haveBeenHit.Add(victimGameObject);
+            GameEvents.OnCharacterTakeHit(victimGameObject, ownerGameObject, damageGiven);
         }
     }
     public void ClearMemory()
     {
-        charactersHitThisAttack.Clear();
+        haveBeenHit.Clear();
     }
 
 }
