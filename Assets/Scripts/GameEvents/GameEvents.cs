@@ -18,9 +18,6 @@ public static class GameEvents
     public static event Action<int, float> WaveStarted;
     public static event Action WavesReset;
 
-    // Game
-    public static event Action GameWon;
-
 
     public static void OnCharacterHealthChange(GameObject character, int currentHealth, int fullHealth)
     {
@@ -50,22 +47,5 @@ public static class GameEvents
     public static void OnPlayerHealthChange(int currentHealth,int maxHealth)
     {
         PlayerHealthChange?.Invoke(currentHealth, maxHealth);
-    }
-
-    public static void OnTimerEnded()
-    {
-        TimerEnded?.Invoke();
-    }
-    public static void OnWaveStarted(int waveNumber, float waveDuration)
-    {
-        WaveStarted?.Invoke(waveNumber, waveDuration);
-    }
-    public static void OnWavesReset()
-    {
-        WavesReset?.Invoke();
-    }
-    public static void OnGameWon()
-    {
-        GameWon?.Invoke();
     }
 }
