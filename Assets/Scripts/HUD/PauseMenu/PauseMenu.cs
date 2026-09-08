@@ -1,9 +1,11 @@
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using System;
 using DG.Tweening;
+using System;
 using System.Xml.Serialization;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     [Header("buttons")]
@@ -17,7 +19,7 @@ public class PauseMenu : MonoBehaviour
     private Button[] pauseMenuButtons;
     private Color pauseMenuButtonOriginalColor;
     private GameObject pauseMenuCanvas;
-
+    [SerializeField] private GameObject allyPrefab;
     [Header("Animation Settings")]
     [SerializeField] private float transitionDuration = 0.5f;
 
@@ -48,6 +50,11 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
+    public void SpawnAlly()
+    {
+        GameObject player = FindAnyObjectByType<NewPlayerController>()?.gameObject;
+        Instantiate(allyPrefab,player.transform.position, Quaternion.identity);
+    }
 
     void Start()
     {  
@@ -57,6 +64,19 @@ public class PauseMenu : MonoBehaviour
     private void OnDestroy()
     {
         InputEvents.Pause -= PausePressed;
+    }
+    public void Resume()
+    {
+        pauseMenuCanvas.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(
+        SceneManager.GetActiveScene().buildIndex);
     }
 
     public void PausePressed()
@@ -95,7 +115,7 @@ public class PauseMenu : MonoBehaviour
         Ease menuEaseIn = Ease.InQuint;
         tween?.Kill();
 
-        Sequence pauseSequence = DOTween.Sequence();
+        DG.Tweening.Sequence pauseSequence = DOTween.Sequence();
 
         pauseSequence.Append(DOVirtual.Float(1f, 0f, transitionDuration, val => Time.timeScale = val));
         pauseSequence.SetUpdate(true);
