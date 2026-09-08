@@ -13,35 +13,14 @@ public class CharacterController : MonoBehaviour
         characterAnimation = GetComponent<CharacterAnimation>();
     }
 
-
-    private void OnCharacterTakeHit(GameObject hittedGameObject, int damage)
-    {
-        if (hittedGameObject != this.gameObject) return;
-        TakeHit();
-
-    }
-
-    private void OnCharacterDeath(GameObject deathGameObject)
-    {
-        if (deathGameObject != this.gameObject) return;
-        Die();
-    }
     private void OnEnable()
     {
-        GameEvents.CharacterDeath += OnCharacterDeath;
-        GameEvents.CharacterTakeHit += OnCharacterTakeHit;
-
         TargetManager.RegisterTarget(gameObject);
-
     }
 
     private void OnDisable()
     {
-        GameEvents.CharacterDeath -= OnCharacterDeath;
-        GameEvents.CharacterTakeHit -= OnCharacterTakeHit;
-
-        TargetManager.UnregisterTarget(gameObject);
-        
+        TargetManager.UnregisterTarget(gameObject);      
     }
 
 
@@ -95,10 +74,6 @@ public class CharacterController : MonoBehaviour
     {
         DisableController();
         characterAnimation.PlayDeath();
-
-
-        //for debug
-        Destroy(this.gameObject);
     }
 
     public void TakeHit()
