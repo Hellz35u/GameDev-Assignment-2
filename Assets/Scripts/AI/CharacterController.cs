@@ -16,14 +16,35 @@ public class CharacterController : MonoBehaviour
         characterAnimation = GetComponent<CharacterAnimation>();
     }
 
+
+    private void OnCharacterTakeHit(GameObject hittedGameObject, int damage)
+    {
+        if (hittedGameObject != this.gameObject) return;
+        TakeHit();
+
+    }
+
+    private void OnCharacterDeath(GameObject deathGameObject)
+    {
+        if (deathGameObject != this.gameObject) return;
+        Die();
+    }
     private void OnEnable()
     {
+        GameEvents.CharacterDeath += OnCharacterDeath;
+        GameEvents.CharacterTakeHit += OnCharacterTakeHit;
+
         TargetManager.RegisterTarget(gameObject);
+
     }
 
     private void OnDisable()
     {
-        TargetManager.UnregisterTarget(gameObject);      
+        GameEvents.CharacterDeath -= OnCharacterDeath;
+        GameEvents.CharacterTakeHit -= OnCharacterTakeHit;
+
+        TargetManager.UnregisterTarget(gameObject);
+        
     }
 
 
@@ -73,16 +94,14 @@ public class CharacterController : MonoBehaviour
         characterAnimation.PlayAttack();
     }
 
-    private IEnumerator HoldAndDestroy(float waitingTime)
-    {
-        yield return new WaitForSeconds(waitingTime);
-        Destroy(gameObject);
-    }
-
     public void Die()
     {
         DisableController();
         characterAnimation.PlayDeath();
+
+
+        //for debug
+        Destroy(this.gameObject);
     }
 
     public void TakeHit()

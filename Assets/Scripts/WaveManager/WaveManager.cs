@@ -174,7 +174,7 @@ public class WaveManager : MonoBehaviour
 
 
     }
-
+   
     private void EndWaveByTime()
     {
         if (waveEnded)
@@ -265,9 +265,9 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    public void CharacterDeathListiner(GameObject victim,GameObject killer)
+    public void CharacterDeathListiner(GameObject other)
     {
-        if (victim == null)
+        if (other == null)
         {
             Debug.LogWarning("WaveManager: CharacterDeathListiner received null.");
             return;
@@ -279,9 +279,9 @@ public class WaveManager : MonoBehaviour
             return;
         }
 
-        if (currentEnemiesInScene.Contains(victim))
+        if (currentEnemiesInScene.Contains(other))
         {
-            currentEnemiesInScene.Remove(victim);
+            currentEnemiesInScene.Remove(other);
         }
 
         CheckIfAllEnemiesKilled();
