@@ -19,12 +19,14 @@ public class PauseMenu : MonoBehaviour
     private Button[] pauseMenuButtons;
     private Color pauseMenuButtonOriginalColor;
     private GameObject pauseMenuCanvas;
+    private GameObject playerGameObject;
     [SerializeField] private GameObject allyPrefab;
     [Header("Animation Settings")]
     [SerializeField] private float transitionDuration = 0.5f;
 
     private void Awake()
     {
+        playerGameObject = FindAnyObjectByType<NewPlayerController>()?.gameObject;
         InputEvents.Pause += PausePressed;
         pauseMenuBackGroundImage = GetComponentInChildren<Image>(true);
         if(pauseMenuBackGroundImage == null)
@@ -52,8 +54,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void SpawnAlly()
     {
-        GameObject player = FindAnyObjectByType<NewPlayerController>()?.gameObject;
-        Instantiate(allyPrefab,player.transform.position, Quaternion.identity);
+        Instantiate(allyPrefab,playerGameObject.transform.position, Quaternion.identity);
     }
 
     void Start()
