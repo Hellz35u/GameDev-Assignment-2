@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 8649052117824774181}
   - component: {fileID: 5138238595434222782}
   - component: {fileID: 2924178867876986896}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 3814084991613829110}
   - component: {fileID: 6631590482898007683}
   - component: {fileID: 4861385928525123879}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: MimicEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}

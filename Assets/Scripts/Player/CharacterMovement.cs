@@ -8,12 +8,15 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] float moveSpeed = 50f;
     [SerializeField] float jumpForce = 8f;
     bool isGrounded = false;
-    void Start()
+
+    private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        if(rb2d == null)
+
+        if (rb2d == null)
         {
-            Debug.LogError("can't find Rigidbody2D in this GameObject!");
+            Debug.LogError("CharacterMovement: Rigidbody2D not found!");
+            enabled = false;
         }
     }
 

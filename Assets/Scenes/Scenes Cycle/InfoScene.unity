@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c55b315ebf9ae342a017b77f2a3f756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackToMenu
-  backToMenuButton: {fileID: 0}
+  backToMenuButton: {fileID: 246605521}
 --- !u!4 &1333312475
 Transform:
   m_ObjectHideFlags: 0

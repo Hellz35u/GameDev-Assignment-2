@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5279564158976228094}
   - component: {fileID: 7973469922321222310}
   - component: {fileID: 4909338858506454366}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 2179371047607085905}
   - component: {fileID: 2927776336164619736}
   - component: {fileID: 1499180790865520825}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: SlimeEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
