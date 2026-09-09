@@ -13,10 +13,6 @@ public static class GameEvents
 
     public static event Action<int,int> PlayerHealthChange;
 
-    public static event Action TimerEnded;
-
-    public static event Action<int, float> WaveStarted;
-    public static event Action WavesReset;
 
 
     public static void OnCharacterHealthChange(GameObject character, int currentHealth, int fullHealth)

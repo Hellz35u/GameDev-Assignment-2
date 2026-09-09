@@ -177,7 +177,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 2.06
+  m_Radius: 5.74
 --- !u!231 &6069309032326521741
 SpringJoint2D:
   m_ObjectHideFlags: 0
